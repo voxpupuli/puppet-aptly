@@ -73,7 +73,7 @@ describe 'aptly' do
           key: {
             'server' => 'keyserver.ubuntu.com',
             'id' => 'EE727D4449467F0E'
-          },
+          }
         )
       end
     end
@@ -123,7 +123,7 @@ describe 'aptly' do
         {
           config: {
             'rootDir' => '/srv/aptly',
-            'architectures' => ['i386', 'amd64']
+            'architectures' => %w[i386 amd64]
           }
         }
       end

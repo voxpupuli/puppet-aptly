@@ -38,8 +38,8 @@ describe 'aptly::repo' do
 
   describe 'param defaults' do
     it {
-      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config \/etc\/aptly.conf repo create *example},
-                                                                    unless: %r{aptly -config \/etc\/aptly.conf repo show example >\/dev\/null},
+      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config /etc/aptly.conf repo create *example},
+                                                                    unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
                                                                     user: 'root',
                                                                     require: ['Package[aptly]', 'File[/etc/aptly.conf]'])
     }
@@ -53,8 +53,8 @@ describe 'aptly::repo' do
     end
 
     it {
-      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config \/etc\/aptly.conf repo create *-component="third-party" *example},
-                                                                    unless: %r{aptly -config \/etc\/aptly.conf repo show example >\/dev\/null},
+      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config /etc/aptly.conf repo create *-component="third-party" *example},
+                                                                    unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
                                                                     user: 'root',
                                                                     require: ['Package[aptly]', 'File[/etc/aptly.conf]'])
     }
@@ -75,8 +75,8 @@ describe 'aptly::repo' do
       end
 
       it {
-        is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config \/etc\/aptly.conf repo create *-component="third-party" *example},
-                                                                      unless: %r{aptly -config \/etc\/aptly.conf repo show example >\/dev\/null},
+        is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config /etc/aptly.conf repo create *-component="third-party" *example},
+                                                                      unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
                                                                       user: 'custom_user',
                                                                       require: ['Package[aptly]', 'File[/etc/aptly.conf]'])
       }
@@ -87,13 +87,13 @@ describe 'aptly::repo' do
     context 'passing valid values' do
       let(:params) do
         {
-          architectures: ['i386', 'amd64']
+          architectures: %w[i386 amd64]
         }
       end
 
       it {
-        is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config \/etc\/aptly.conf repo create *-architectures="i386,amd64" *example},
-                                                                      unless: %r{aptly -config \/etc\/aptly.conf repo show example >\/dev\/null},
+        is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config /etc/aptly.conf repo create *-architectures="i386,amd64" *example},
+                                                                      unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
                                                                       user: 'root',
                                                                       require: ['Package[aptly]', 'File[/etc/aptly.conf]'])
       }
@@ -120,8 +120,8 @@ describe 'aptly::repo' do
     end
 
     it {
-      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config \/etc\/aptly.conf repo create *-comment="example comment" *example},
-                                                                    unless: %r{aptly -config \/etc\/aptly.conf repo show example >\/dev\/null},
+      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config /etc/aptly.conf repo create *-comment="example comment" *example},
+                                                                    unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
                                                                     user: 'root',
                                                                     require: ['Package[aptly]', 'File[/etc/aptly.conf]'])
     }
@@ -135,8 +135,8 @@ describe 'aptly::repo' do
     end
 
     it {
-      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config \/etc\/aptly.conf repo create *-distribution="example_distribution" *example},
-                                                                    unless: %r{aptly -config \/etc\/aptly.conf repo show example >\/dev\/null},
+      is_expected.to contain_exec('aptly_repo_create-example').with(command: %r{aptly -config /etc/aptly.conf repo create *-distribution="example_distribution" *example},
+                                                                    unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
                                                                     user: 'root',
                                                                     require: ['Package[aptly]', 'File[/etc/aptly.conf]'])
     }
