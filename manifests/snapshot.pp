@@ -1,18 +1,12 @@
-# == Define: aptly::snapshot
 #
-# Create a snapshot using `aptly snapshot`.
+# @summary Create a snapshot using `aptly snapshot`.
 #
-# === Parameters
-#
-# [*repo*]
-#   Create snapshot from given repo.
-#
-# [*mirror*]
-#   Create snapshot from given mirror.
+# @param repo Create snapshot from given repo.
+# @param mirror Create snapshot from given mirror.
 #
 define aptly::snapshot (
-  $repo   = undef,
-  $mirror = undef,
+  Optional[String[1]] $repo   = undef,
+  Optional[String[1]] $mirror = undef,
 ) {
   include aptly
 

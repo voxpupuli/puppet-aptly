@@ -1,58 +1,26 @@
-# == Define: aptly::mirror
 #
-# Create a mirror using `aptly mirror create`. It will not update, snapshot,
-# or publish the mirror for you, because it will take a long time and it
-# doesn't make sense to schedule these actions frequenly in Puppet.
+# @summary aptly::mirror
 #
-# NB: This will not recreate the mirror if the params change! You will need
-# to manually `aptly mirror drop <name>` after also dropping all snapshot
-# and publish references.
+#   Create a mirror using `aptly mirror create`. It will not update, snapshot,
+#   or publish the mirror for you, because it will take a long time and it
+#   doesn't make sense to schedule these actions frequenly in Puppet.
 #
-# === Parameters
+#   NB: This will not recreate the mirror if the params change! You will need
+#   to manually `aptly mirror drop <name>` after also dropping all snapshot
+#   and publish references.
 #
-# [*location*]
-#   URL of the APT repo.
+# @param location URL of the APT repo.
+# @param key This can either be a key id or a hash including key options. If using a hash, key => { 'id' => <id> } must be specified
+# @param filter Package query that is applied to packages in the mirror
+# @param release Distribution to mirror for.
+# @param repos Components to mirror. If an empty array then aptly will default to mirroring all components.
+# @param architectures Architectures to mirror. If attribute is ommited Aptly will mirror all available architectures.
+# @param with_sources Boolean to control whether Aptly should download source packages in addition to binary packages.
+# @param with_udebs Boolean to control whether Aptly should also download .udeb packages.
+# @param filter_with_deps Boolean to control whether when filtering to include dependencies of matching packages as well
+# @param environment Optional environment variables to pass to the exec. Example: ['http_proxy=http://127.0.0.2:3128']
+# @param keyring path to the keyring used by aptly
 #
-# [*key*]
-#   This can either be a key id or a hash including key options.
-#   If using a hash, key => { 'id' => <id> } must be specified
-#   Default: {}
-#
-# [*filter*]
-#   Package query that is applied to packages in the mirror
-#
-# [*release*]
-#   Distribution to mirror for.
-#   Default: `$::lsbdistcodename`
-#
-# [*repos*]
-#   Components to mirror. If an empty array then aptly will default to
-#   mirroring all components.
-#   Default: []
-#
-# [*architectures*]
-#   Architectures to mirror. If attribute is ommited Aptly will mirror all
-#   available architectures.
-#   Default: []
-#
-# [*with_sources*]
-#   Boolean to control whether Aptly should download source packages in addition
-#   to binary packages.
-#   Default: false
-#
-# [*with_udebs*]
-#   Boolean to control whether Aptly should also download .udeb packages.
-#   Default: false
-#
-# [*filter_with_deps*]
-#   Boolean to control whether when filtering to include dependencies of matching
-#   packages as well
-#   Default: false
-#
-# [*environment*]
-#   Optional environment variables to pass to the exec.
-#   Example: ['http_proxy=http://127.0.0.2:3128']
-#   Default: []
 define aptly::mirror (
   String $location,
   Variant[String[1], Hash[String[1],Variant[Array,Integer[1],String[1]]]] $key = {},
