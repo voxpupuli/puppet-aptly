@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.1.0](https://github.com/voxpupuli/puppet-aptly/tree/v2.1.0) (2024-02-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v2.0.0...v2.1.0)
+
+**Implemented enhancements:**
+
+- Add puppet-strings documentation [\#22](https://github.com/voxpupuli/puppet-aptly/pull/22) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.0.0](https://github.com/voxpupuli/puppet-aptly/tree/v2.0.0) (2024-02-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v1.0.0...v2.0.0)
