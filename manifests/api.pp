@@ -1,32 +1,12 @@
-# == Class: aptly::api
 #
-# Install and configure Aptly's API Service
+# @summary Install and configure Aptly's API Service
 #
-# === Parameters
-#
-# [*ensure*]
-#   Ensure to pass on to service type
-#   Default: running
-#
-# [*user*]
-#   User to run the service as.
-#   Default: root
-#
-# [*group*]
-#   Group to run the service as.
-#   Default: root
-#
-# [*listen*]
-#   What IP/port to listen on for API requests.
-#   Default: ':8080'
-#
-# [*log*]
-#   Enable or disable Upstart logging.
-#   Default: none
-#
-# [*enable_cli_and_http*]
-#   Enable concurrent use of command line (CLI) and HTTP APIs with
-#   the same Aptly root.
+# @param ensure Ensure to pass on to service type
+# @param user User to run the service as.
+# @param group Group to run the service as.
+# @param listen What IP/port to listen on for API requests.
+# @param log Enable or disable Upstart logging.
+# @param enable_cli_and_http Enable concurrent use of command line (CLI) and HTTP APIs with the same Aptly root.
 #
 class aptly::api (
   Enum['stopped','running'] $ensure = running,

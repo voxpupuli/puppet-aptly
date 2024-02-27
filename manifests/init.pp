@@ -1,46 +1,15 @@
-# == Class: aptly
 #
-# aptly is a swiss army knife for Debian repository management
+# @summary aptly is a swiss army knife for Debian repository management
 #
-# === Parameters
-#
-# [*package_ensure*]
-#   Ensure parameter to pass to the package resource.
-#   Default: 'present'
-#
-# [*config_file*]
-#   Absolute path to the configuration file. Defaults to
-#   `/etc/aptly.conf`.
-
-# [*config_contents*]
-#   Contents of the config file.
-#   Default: undef
-#
-# [*config*]
-#   Hash of configuration options for `/etc/aptly.conf`.
-#   See http://www.aptly.info/#configuration
-#   Default: {}
-#
-# [*repo*]
-#   Whether to configure an apt::source for `repo.aptly.info`.
-#   You might want to disable this if/when you've mirrored that yourself.
-#   Default: true
-#
-# [*key_server*]
-#   Key server to use when `$repo` is true.
-#   Default: keyserver.ubuntu.com
-#
-# [*user*]
-#   The user to use when performing an aptly command
-#   Default: 'root'
-#
-# [*aptly_repos*]
-#   Hash of aptly repos which is passed to aptly::repo
-#   Default: {}
-#
-# [*aptly_mirrors*]
-#   Hash of aptly mirrors which is passed to aptly::mirror
-#   Default: {}
+# @param package_ensure Ensure parameter to pass to the package resource.
+# @param config_file Absolute path to the configuration file. Defaults to
+# @param config_contents Contents of the config file.
+# @param config Hash of configuration options for `/etc/aptly.conf`. See http://www.aptly.info/#configuration
+# @param repo Whether to configure an apt::source for `repo.aptly.info`. You might want to disable this when you've mirrored that yourself.
+# @param key_server Key server to use when `$repo` is true.
+# @param user The user to use when performing an aptly command
+# @param aptly_repos Hash of aptly repos which is passed to aptly::repo
+# @param aptly_mirrors Hash of aptly mirrors which is passed to aptly::mirror
 #
 class aptly (
   String $package_ensure            = 'present',
