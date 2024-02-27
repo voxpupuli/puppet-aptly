@@ -57,7 +57,7 @@ define aptly::mirror (
   String $location,
   Variant[String[1], Hash[String[1],Variant[Integer[1],String[1]]]] $key = {},
   String $keyring            = '/etc/apt/trusted.gpg',
-  String $filter             = '',
+  Optional[String[1]] $filter = undef,
   String $release            = $::lsbdistcodename,
   Array $architectures       = [],
   Array $repos               = [],
@@ -85,10 +85,10 @@ define aptly::mirror (
     $components_arg = " ${components}"
   }
 
-  if empty($filter) {
-    $filter_arg = ''
-  } else{
-    $filter_arg = " -filter=\"${filter}\""
+  $filter_arg = if $filter {
+    " -filter=\"${filter}\""
+  } else {
+    ''
   }
 
   if ($filter_with_deps == true) {
