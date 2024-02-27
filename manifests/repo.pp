@@ -40,7 +40,7 @@ define aptly::repo(
   $comment_arg = if $comment {
     "-comment=\"${comment}\""
   } else {
-    $comment_arg = ''
+    ''
   }
 
   $component_arg = if $component {
