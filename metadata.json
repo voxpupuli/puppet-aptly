@@ -1,12 +1,12 @@
 {
-  "name": "gdsoperations-aptly",
-  "version": "1.0.0",
-  "author": "Government Digital Service",
+  "name": "puppet-aptly",
+  "version": "2.0.0",
+  "author": "Vox Pupuli",
   "summary": "Module to manage aptly",
   "license": "MIT",
-  "source": "https://github.com/gds-operations/puppet-aptly",
-  "project_page": "https://github.com/gds-operations/puppet-aptly",
-  "issues_url": "https://github.com/gds-operations/puppet-aptly/issues",
+  "source": "https://github.com/voxpupuli/puppet-aptly",
+  "project_page": "https://github.com/voxpupuli/puppet-aptly",
+  "issues_url": "https://github.com/voxpupuli/puppet-aptly/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -42,8 +42,5 @@
   "tags": [
     "apt",
     "aptly"
-  ],
-  "pdk-version": "1.7.1",
-  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
-  "template-ref": "1.7.1-0-g810b982"
+  ]
 }
