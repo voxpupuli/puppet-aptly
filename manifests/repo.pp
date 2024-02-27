@@ -22,11 +22,11 @@
 
 define aptly::repo(
   Array $architectures = [],
-  String $comment       = '',
-  String $component     = '',
-  String $distribution  = '',
-){
-  include ::aptly
+  Optional[String[1]] $comment       = undef,
+  Optional[String[1]] $component     = undef,
+  Optional[String[1]] $distribution  = undef,
+) {
+  include aptly
 
   $aptly_cmd = "${::aptly::aptly_cmd} repo"
 
@@ -37,22 +37,22 @@ define aptly::repo(
     $architectures_arg = "-architectures=\"${architectures_as_s}\""
   }
 
-  if empty($comment) {
+  $comment_arg = if $comment {
+    "-comment=\"${comment}\""
+  } else {
     $comment_arg = ''
-  } else{
-    $comment_arg = "-comment=\"${comment}\""
   }
 
-  if empty($component) {
-    $component_arg = ''
-  } else{
-    $component_arg = "-component=\"${component}\""
+  $component_arg = if $component {
+    "-component=\"${component}\""
+  } else {
+    ''
   }
 
-  if empty($distribution) {
-    $distribution_arg = ''
-  } else{
-    $distribution_arg = "-distribution=\"${distribution}\""
+  $distribution_arg = if $distribution {
+    "-distribution=\"${distribution}\""
+  } else {
+    ''
   }
 
   exec{ "aptly_repo_create-${title}":
