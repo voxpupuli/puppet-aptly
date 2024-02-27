@@ -14,7 +14,7 @@
 #   URL of the APT repo.
 #
 # [*key*]
-#   This can either be a key id or a hash including key options. 
+#   This can either be a key id or a hash including key options.
 #   If using a hash, key => { 'id' => <id> } must be specified
 #   Default: {}
 #
@@ -45,7 +45,7 @@
 #   Default: false
 #
 # [*filter_with_deps*]
-#   Boolean to control whether when filtering to include dependencies of matching 
+#   Boolean to control whether when filtering to include dependencies of matching
 #   packages as well
 #   Default: false
 #
@@ -58,7 +58,7 @@ define aptly::mirror (
   Variant[String[1], Hash[String[1],Variant[Integer[1],String[1]]]] $key = {},
   String $keyring            = '/etc/apt/trusted.gpg',
   Optional[String[1]] $filter = undef,
-  String $release            = $::lsbdistcodename,
+  String $release            = $facts['os']['distro']['codename'],
   Array $architectures       = [],
   Array $repos               = [],
   Boolean $with_sources      = false,
@@ -66,14 +66,14 @@ define aptly::mirror (
   Boolean $filter_with_deps  = false,
   Array $environment         = [],
 ) {
-  include ::aptly
+  include aptly
 
   $gpg_cmd = "/usr/bin/gpg --no-default-keyring --keyring ${keyring}"
-  $aptly_cmd = "${::aptly::aptly_cmd} mirror"
+  $aptly_cmd = "${aptly::aptly_cmd} mirror"
 
   if empty($architectures) {
     $architectures_arg = ''
-  } else{
+  } else {
     $architectures_as_s = join($architectures, ',')
     $architectures_arg = "-architectures=\"${architectures_as_s}\""
   }
@@ -93,11 +93,11 @@ define aptly::mirror (
 
   if ($filter_with_deps == true) {
     $filter_with_deps_arg = ' -filter-with-deps'
-  } else{
+  } else {
     $filter_with_deps_arg = ''
   }
 
-  # $::aptly::key_server will be used as default key server
+  # $aptly::key_server will be used as default key server
   # key in hash format
   if $key =~ Hash and $key[id] {
     if $key[id] =~ Array {
@@ -107,13 +107,13 @@ define aptly::mirror (
     }
     if $key[server] {
       $key_server = $key[server]
-    }else{
-      $key_server = $::aptly::key_server
+    } else {
+      $key_server = $aptly::key_server
     }
 
-  # key in string/array format
+    # key in string/array format
   } elsif $key =~ String {
-    $key_server = $::aptly::key_server
+    $key_server = $aptly::key_server
     $key_string = $key
   }
 
@@ -123,12 +123,12 @@ define aptly::mirror (
       Package['aptly'],
       File['/etc/aptly.conf'],
     ]
-  }else{
+  } else {
     exec { "aptly_mirror_gpg-${title}":
       path    => '/bin:/usr/bin',
       command => "${gpg_cmd} --keyserver '${key_server}' --recv-keys '${key_string}'",
       unless  => "echo '${key_string}' | xargs -n1 ${gpg_cmd} --list-keys",
-      user    => $::aptly::user,
+      user    => $aptly::user,
     }
 
     $exec_aptly_mirror_create_require = [
@@ -141,7 +141,7 @@ define aptly::mirror (
   exec { "aptly_mirror_create-${title}":
     command     => "${aptly_cmd} create ${architectures_arg} -with-sources=${with_sources} -with-udebs=${with_udebs}${filter_arg}${filter_with_deps_arg} ${title} ${location} ${release}${components_arg}",
     unless      => "${aptly_cmd} show ${title} >/dev/null",
-    user        => $::aptly::user,
+    user        => $aptly::user,
     require     => $exec_aptly_mirror_create_require,
     environment => $environment,
   }

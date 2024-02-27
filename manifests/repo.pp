@@ -20,7 +20,7 @@
 # [*distribution*]
 #   Specify the default distribution to be used when publishing this repository.
 
-define aptly::repo(
+define aptly::repo (
   Array $architectures = [],
   Optional[String[1]] $comment       = undef,
   Optional[String[1]] $component     = undef,
@@ -28,11 +28,11 @@ define aptly::repo(
 ) {
   include aptly
 
-  $aptly_cmd = "${::aptly::aptly_cmd} repo"
+  $aptly_cmd = "${aptly::aptly_cmd} repo"
 
   if empty($architectures) {
     $architectures_arg = ''
-  } else{
+  } else {
     $architectures_as_s = join($architectures, ',')
     $architectures_arg = "-architectures=\"${architectures_as_s}\""
   }
@@ -55,10 +55,10 @@ define aptly::repo(
     ''
   }
 
-  exec{ "aptly_repo_create-${title}":
+  exec { "aptly_repo_create-${title}":
     command => "${aptly_cmd} create ${architectures_arg} ${comment_arg} ${component_arg} ${distribution_arg} ${title}",
     unless  => "${aptly_cmd} show ${title} >/dev/null",
-    user    => $::aptly::user,
+    user    => $aptly::user,
     require => [
       Package['aptly'],
       File['/etc/aptly.conf'],
