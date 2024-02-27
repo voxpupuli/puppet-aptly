@@ -125,7 +125,7 @@ define aptly::mirror (
     ]
   } else {
     exec { "aptly_mirror_gpg-${title}":
-      path    => '/bin:/usr/bin',
+      path    => $facts['path'],
       command => "${gpg_cmd} --keyserver '${key_server}' --recv-keys '${key_string}'",
       unless  => "echo '${key_string}' | xargs -n1 ${gpg_cmd} --list-keys",
       user    => $aptly::user,
