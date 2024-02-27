@@ -38,8 +38,8 @@ describe 'aptly::snapshot' do
 
   describe 'param defaults' do
     it {
-      is_expected.to contain_exec('aptly_snapshot_create-example').with(command: %r{aptly -config \/etc\/aptly.conf snapshot create example empty},
-                                                                        unless: %r{aptly -config \/etc\/aptly.conf snapshot show example >\/dev\/null},
+      is_expected.to contain_exec('aptly_snapshot_create-example').with(command: %r{aptly -config /etc/aptly.conf snapshot create example empty},
+                                                                        unless: %r{aptly -config /etc/aptly.conf snapshot show example >/dev/null},
                                                                         user: 'root',
                                                                         require: 'Class[Aptly]')
     }
@@ -67,8 +67,8 @@ describe 'aptly::snapshot' do
       end
 
       it {
-        is_expected.to contain_exec('aptly_snapshot_create-example').with(command: %r{aptly -config \/etc\/aptly.conf snapshot create example from repo example_repo},
-                                                                          unless: %r{aptly -config \/etc\/aptly.conf snapshot show example >\/dev\/null},
+        is_expected.to contain_exec('aptly_snapshot_create-example').with(command: %r{aptly -config /etc/aptly.conf snapshot create example from repo example_repo},
+                                                                          unless: %r{aptly -config /etc/aptly.conf snapshot show example >/dev/null},
                                                                           user: 'root',
                                                                           require: 'Class[Aptly]')
       }
@@ -82,8 +82,8 @@ describe 'aptly::snapshot' do
       end
 
       it {
-        is_expected.to contain_exec('aptly_snapshot_create-example').with(command: %r{aptly -config \/etc\/aptly.conf snapshot create example from mirror example_mirror},
-                                                                          unless: %r{aptly -config \/etc\/aptly.conf snapshot show example >\/dev\/null},
+        is_expected.to contain_exec('aptly_snapshot_create-example').with(command: %r{aptly -config /etc/aptly.conf snapshot create example from mirror example_mirror},
+                                                                          unless: %r{aptly -config /etc/aptly.conf snapshot show example >/dev/null},
                                                                           user: 'root',
                                                                           require: 'Class[Aptly]')
       }

@@ -39,18 +39,19 @@ describe 'aptly::api' do
       let(:params) { {} }
 
       it do
-        is_expected.to contain_file('aptly-systemd')
-          .with_path('/etc/systemd/system/aptly-api.service')
-          .without_content(%r{^\s*author })
-          .with_content(%r{^User=root$})
-          .with_content(%r{^Group=root$})
-          .with_content(%r{^ExecStart=\/usr\/bin\/aptly api serve -listen=:8080$})
-          .that_notifies('Service[aptly-api]')
+        is_expected.to contain_file('aptly-systemd').
+          with_path('/etc/systemd/system/aptly-api.service').
+          without_content(%r{^\s*author }).
+          with_content(%r{^User=root$}).
+          with_content(%r{^Group=root$}).
+          with_content(%r{^ExecStart=/usr/bin/aptly api serve -listen=:8080$}).
+          that_notifies('Service[aptly-api]')
       end
+
       it do
-        is_expected.to contain_service('aptly-api')
-          .with_ensure('running')
-          .with_enable(true)
+        is_expected.to contain_service('aptly-api').
+          with_ensure('running').
+          with_enable(true)
       end
     end
 
@@ -104,7 +105,7 @@ describe 'aptly::api' do
           }
         end
 
-        it { is_expected.to contain_file('aptly-systemd').with_content(%r{^ExecStart=\/usr\/bin\/aptly api serve -listen=127.0.0.1:9090$}) }
+        it { is_expected.to contain_file('aptly-systemd').with_content(%r{^ExecStart=/usr/bin/aptly api serve -listen=127.0.0.1:9090$}) }
       end
     end
 
@@ -143,19 +144,19 @@ describe 'aptly::api' do
       let(:params) { {} }
 
       it do
-        is_expected.to contain_file('aptly-upstart')
-          .with_path('/etc/init/aptly-api.conf')
-          .without_content(%r{^\s*author })
-          .with_content(%r{^setuid root$})
-          .with_content(%r{^setgid root$})
-          .with_content(%r{^exec \/usr\/bin\/aptly api serve -listen=:8080$})
-          .that_notifies('Service[aptly-api]')
+        is_expected.to contain_file('aptly-upstart').
+          with_path('/etc/init/aptly-api.conf').
+          without_content(%r{^\s*author }).
+          with_content(%r{^setuid root$}).
+          with_content(%r{^setgid root$}).
+          with_content(%r{^exec /usr/bin/aptly api serve -listen=:8080$}).
+          that_notifies('Service[aptly-api]')
       end
 
       it do
-        is_expected.to contain_service('aptly-api')
-          .with_ensure('running')
-          .with_enable(true)
+        is_expected.to contain_service('aptly-api').
+          with_ensure('running').
+          with_enable(true)
       end
     end
 
@@ -209,7 +210,7 @@ describe 'aptly::api' do
           }
         end
 
-        it { is_expected.to contain_file('aptly-upstart').with_content(%r{^exec \/usr\/bin\/aptly api serve -listen=127.0.0.1:9090$}) }
+        it { is_expected.to contain_file('aptly-upstart').with_content(%r{^exec /usr/bin/aptly api serve -listen=127.0.0.1:9090$}) }
       end
     end
 

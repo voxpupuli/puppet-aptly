@@ -26,7 +26,7 @@ describe 'mirror tests' do
   it 'has installed aptly' do
     shell 'aptly mirror show puppetlabs' do |r|
       r.stdout.should =~ %r{^Name: puppetlabs
-Archive Root URL: http:\/\/apt\.puppetlabs\.com\/
+Archive Root URL: http://apt\.puppetlabs\.com/
 Distribution: precise
 Components: main, dependencies$}
       r.stderr.should be_empty

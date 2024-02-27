@@ -29,8 +29,8 @@ describe 'aptly::mirror' do
       }
 
       it {
-        is_expected.to contain_exec('aptly_mirror_create-example').with(command: %r{aptly -config \/etc\/aptly.conf mirror create *-with-sources=false -with-udebs=false example http:\/\/repo\.example\.com precise$},
-                                                                        unless: %r{aptly -config \/etc\/aptly.conf mirror show example >\/dev\/null$},
+        is_expected.to contain_exec('aptly_mirror_create-example').with(command: %r{aptly -config /etc/aptly.conf mirror create *-with-sources=false -with-udebs=false example http://repo\.example\.com precise$},
+                                                                        unless: %r{aptly -config /etc/aptly.conf mirror show example >/dev/null$},
                                                                         user: 'root',
                                                                         require: [
                                                                           'Package[aptly]',
@@ -98,8 +98,8 @@ describe 'aptly::mirror' do
         }
 
         it {
-          is_expected.to contain_exec('aptly_mirror_create-example').with(command: %r{aptly -config \/etc\/aptly.conf mirror create *-with-sources=false -with-udebs=false example http:\/\/repo\.example\.com precise$},
-                                                                          unless: %r{aptly -config \/etc\/aptly.conf mirror show example >\/dev\/null$},
+          is_expected.to contain_exec('aptly_mirror_create-example').with(command: %r{aptly -config /etc/aptly.conf mirror create *-with-sources=false -with-udebs=false example http://repo\.example\.com precise$},
+                                                                          unless: %r{aptly -config /etc/aptly.conf mirror show example >/dev/null$},
                                                                           user: 'custom_user',
                                                                           require: [
                                                                             'Package[aptly]',
@@ -205,7 +205,7 @@ describe 'aptly::mirror' do
           {
             location: 'http://repo.example.com',
             key: {
-              id: ['ABC123', 'DEF456', 'GHI789'],
+              id: %w[ABC123 DEF456 GHI789],
               server: 'keyserver.ubuntu.com'
             }
           }
@@ -246,7 +246,7 @@ describe 'aptly::mirror' do
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{aptly -config \/etc\/aptly.conf mirror create *-with-sources=false -with-udebs=false example http:\/\/repo\.example\.com precise main},
+            %r{aptly -config /etc/aptly.conf mirror create *-with-sources=false -with-udebs=false example http://repo\.example\.com precise main}
           )
         }
       end
@@ -259,14 +259,14 @@ describe 'aptly::mirror' do
               id: 'ABC123',
               server: 'keyserver.ubuntu.com'
             },
-            repos: ['main', 'contrib', 'non-free'],
+            repos: %w[main contrib non-free],
             release: 'precise'
           }
         end
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false example http://repo.example.com precise main contrib non-free},
+            %r{aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false example http://repo.example.com precise main contrib non-free}
           )
         }
       end
@@ -288,7 +288,7 @@ describe 'aptly::mirror' do
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{aptly -config /etc/aptly.conf mirror create -architectures='amd64' -with-sources=false -with-udebs=false example http://repo.example.com precise},
+            %r{aptly -config /etc/aptly.conf mirror create -architectures='amd64' -with-sources=false -with-udebs=false example http://repo.example.com precise}
           )
         }
       end
@@ -301,14 +301,14 @@ describe 'aptly::mirror' do
               id: 'ABC123',
               server: 'keyserver.ubuntu.com'
             },
-            architectures: ['i386', 'amd64', 'armhf'],
+            architectures: %w[i386 amd64 armhf],
             release: 'precise'
           }
         end
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create -architectures='i386,amd64,armhf' -with-sources=false -with-udebs=false example http://repo.example.com precise},
+            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create -architectures='i386,amd64,armhf' -with-sources=false -with-udebs=false example http://repo.example.com precise}
           )
         }
       end
@@ -330,7 +330,7 @@ describe 'aptly::mirror' do
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{aptly -config /etc/aptly.conf mirror create  -with-sources=true -with-udebs=false example http://repo.example.com precise},
+            %r{aptly -config /etc/aptly.conf mirror create  -with-sources=true -with-udebs=false example http://repo.example.com precise}
           )
         }
       end
@@ -372,7 +372,7 @@ describe 'aptly::mirror' do
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter-with-deps example http://repo.example.com precise},
+            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter-with-deps example http://repo.example.com precise}
           )
         }
       end
@@ -394,7 +394,7 @@ describe 'aptly::mirror' do
 
         it {
           is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter="this is a string" example http://repo.example.com precise},
+            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter="this is a string" example http://repo.example.com precise}
           )
         }
       end
