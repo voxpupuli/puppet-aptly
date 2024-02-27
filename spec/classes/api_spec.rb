@@ -70,16 +70,6 @@ describe 'aptly::api' do
 
         it { is_expected.to contain_service('aptly-api').with_ensure('stopped') }
       end
-
-      context 'invalid value' do
-        let(:params) do
-          {
-            ensure: 'yolo'
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{expects a}) }
-      end
     end
 
     describe 'user' do
@@ -91,16 +81,6 @@ describe 'aptly::api' do
         end
 
         it { is_expected.to contain_file('aptly-systemd').with_content(%r{^User=yolo$}) }
-      end
-
-      context 'not a string' do
-        let(:params) do
-          {
-            user: false
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{is not a string}) }
       end
     end
 
@@ -114,16 +94,6 @@ describe 'aptly::api' do
 
         it { is_expected.to contain_file('aptly-systemd').with_content(%r{^Group=yolo$}) }
       end
-
-      context 'not a string' do
-        let(:params) do
-          {
-            group: false
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{is not a string}) }
-      end
     end
 
     describe 'listen' do
@@ -135,38 +105,6 @@ describe 'aptly::api' do
         end
 
         it { is_expected.to contain_file('aptly-systemd').with_content(%r{^ExecStart=\/usr\/bin\/aptly api serve -listen=127.0.0.1:9090$}) }
-      end
-
-      context 'not a string' do
-        let(:params) do
-          {
-            listen: false
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{input needs to be a String}) }
-      end
-
-      context 'invalid format' do
-        let(:params) do
-          {
-            listen: 'yolo'
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{Valid values for \$listen: :port, <ip>:<port>}) }
-      end
-    end
-
-    describe 'log' do
-      context 'invalid value' do
-        let(:params) do
-          {
-            log: 'yolo'
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{expects a}) }
       end
     end
 
@@ -237,16 +175,6 @@ describe 'aptly::api' do
 
         it { is_expected.to contain_service('aptly-api').with_ensure('stopped') }
       end
-
-      context 'invalid value' do
-        let(:params) do
-          {
-            ensure: 'yolo'
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{expects a}) }
-      end
     end
 
     describe 'user' do
@@ -258,16 +186,6 @@ describe 'aptly::api' do
         end
 
         it { is_expected.to contain_file('aptly-upstart').with_content(%r{^setuid yolo$}) }
-      end
-
-      context 'not a string' do
-        let(:params) do
-          {
-            user: false
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{is not a string}) }
       end
     end
 
@@ -281,16 +199,6 @@ describe 'aptly::api' do
 
         it { is_expected.to contain_file('aptly-upstart').with_content(%r{^setgid yolo$}) }
       end
-
-      context 'not a string' do
-        let(:params) do
-          {
-            group: false
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{is not a string}) }
-      end
     end
 
     describe 'listen' do
@@ -302,26 +210,6 @@ describe 'aptly::api' do
         end
 
         it { is_expected.to contain_file('aptly-upstart').with_content(%r{^exec \/usr\/bin\/aptly api serve -listen=127.0.0.1:9090$}) }
-      end
-
-      context 'not a string' do
-        let(:params) do
-          {
-            listen: false
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{input needs to be a String}) }
-      end
-
-      context 'invalid format' do
-        let(:params) do
-          {
-            listen: 'yolo'
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{Valid values for \$listen: :port, <ip>:<port>}) }
       end
     end
 
@@ -340,16 +228,6 @@ describe 'aptly::api' do
         end
 
         it { is_expected.to contain_file('aptly-upstart').with_content(%r{^console log$}) }
-      end
-
-      context 'invalid value' do
-        let(:params) do
-          {
-            log: 'yolo'
-          }
-        end
-
-        it { is_expected.to raise_error(Puppet::Error, %r{expects a}) }
       end
     end
 

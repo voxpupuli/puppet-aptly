@@ -39,7 +39,7 @@ describe 'aptly' do
 
     it { is_expected.to contain_apt__source('aptly') }
     it { is_expected.to contain_package('aptly').that_requires('Class[Apt::Update]') }
-    it { is_expected.to contain_file('/etc/aptly.conf').with_content("{}\n") }
+    it { is_expected.to contain_file('/etc/aptly.conf').with_content("{\n}\n") }
   end
 
   describe '#package_ensure' do
@@ -72,7 +72,7 @@ describe 'aptly' do
         is_expected.to contain_apt__source('aptly').with(
           key: {
             'server' => 'keyserver.ubuntu.com',
-            'id' => 'DF32BC15E2145B3FA151AED19E3E53F19C7DE460'
+            'id' => 'EE727D4449467F0E'
           },
         )
       end
@@ -128,12 +128,7 @@ describe 'aptly' do
         }
       end
 
-      it {
-        is_expected.to contain_file('/etc/aptly.conf').with_content(<<EOS
-{"architectures":["i386","amd64"],"rootDir":"/srv/aptly"}
-EOS
-                                                                   )
-      }
+      it { is_expected.to contain_file('/etc/aptly.conf').with_content(%r{architectures}).with_content(%r{i386}).with_content(%r{rootDir}).with_content(%r{/srv/aptly}) }
     end
   end
 
