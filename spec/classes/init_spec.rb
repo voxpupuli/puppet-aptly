@@ -72,7 +72,7 @@ describe 'aptly' do
         is_expected.to contain_apt__source('aptly').with(
           key: {
             'server' => 'keyserver.ubuntu.com',
-            'id' => 'DF32BC15E2145B3FA151AED19E3E53F19C7DE460'
+            'id' => 'EE727D4449467F0E'
           },
         )
       end
