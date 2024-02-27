@@ -58,10 +58,10 @@ class aptly (
       location => 'http://repo.aptly.info',
       release  => 'squeeze',
       repos    => 'main',
-      key      =>  {
+      key      => {
         server => $key_server,
         id     => 'EE727D4449467F0E',
-      }
+      },
     }
 
     Apt::Source['aptly'] -> Class['apt::update'] -> Package['aptly']

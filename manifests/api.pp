@@ -35,9 +35,8 @@ class aptly::api (
   Pattern['^([0-9.]*:[0-9]+$|unix:)'] $listen = ':8080',
   Enum['none','log'] $log           = 'none',
   Boolean $enable_cli_and_http      = false,
-  ) {
-
-  if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') < 0 {
+) {
+  if $facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '15.04') < 0 {
     file { 'aptly-upstart':
       path    => '/etc/init/aptly-api.conf',
       content => template('aptly/etc/aptly-api.init.erb'),
@@ -50,7 +49,7 @@ class aptly::api (
     }
     ~> exec { 'aptly-api-systemd-reload':
       command     => 'systemctl daemon-reload',
-      path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
+      path        => ['/usr/bin', '/bin', '/usr/sbin'],
       refreshonly => true,
       notify      => Service['aptly-api'],
     }
