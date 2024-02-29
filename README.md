@@ -8,7 +8,7 @@
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/aptly.svg)](https://forge.puppetlabs.com/puppet/aptly)
 [![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-aptly)
 [![MIT License](https://img.shields.io/github/license/voxpupuli/puppet-aptly.svg)](LICENSE)
-[![Forked from GDS](https://img.shields.io/badge/donated%20by-camptocamp-fb7047.svg)](#transfer-notice)
+[![Forked from GDS](https://img.shields.io/badge/donated%20by-GDS-fb7047.svg)](#transfer-notice)
 
 # aptly
 Puppet module for [aptly](https://www.aptly.info/).
