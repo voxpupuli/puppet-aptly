@@ -20,6 +20,7 @@
 # @param filter_with_deps Boolean to control whether when filtering to include dependencies of matching packages as well
 # @param environment Optional environment variables to pass to the exec. Example: ['http_proxy=http://127.0.0.2:3128']
 # @param keyring path to the keyring used by aptly
+# @param force_components Boolean to control whether Aptly should force download of components.
 #
 define aptly::mirror (
   String $location,
@@ -33,6 +34,7 @@ define aptly::mirror (
   Boolean $with_udebs        = false,
   Boolean $filter_with_deps  = false,
   Array $environment         = [],
+  Boolean $force_components  = false,
 ) {
   include aptly
 
@@ -106,8 +108,14 @@ define aptly::mirror (
     ]
   }
 
+  $force_components_arg = if $force_components {
+    ' -force-components'
+  } else {
+    ''
+  }
+
   exec { "aptly_mirror_create-${title}":
-    command     => "${aptly_cmd} create ${architectures_arg} -with-sources=${with_sources} -with-udebs=${with_udebs}${filter_arg}${filter_with_deps_arg} ${title} ${location} ${release}${components_arg}",
+    command     => "${aptly_cmd} create ${architectures_arg} -with-sources=${with_sources} -with-udebs=${with_udebs}${filter_arg}${filter_with_deps_arg}${force_components_arg} ${title} ${location} ${release}${components_arg}",
     unless      => "${aptly_cmd} show ${title} >/dev/null",
     user        => $aptly::user,
     require     => $exec_aptly_mirror_create_require,
