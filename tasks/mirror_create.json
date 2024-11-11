@@ -1,0 +1,96 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Create new mirror",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "name": {
+      "description": "Mirror name",
+      "type": "String[1]"
+    },
+    "url": {
+      "description": "Archive URL",
+      "type": "Stdlib::HTTPUrl"
+    },
+    "distribution": {
+      "description": "Distribution name",
+      "type": "String[1]"
+    },
+    "component": {
+      "description": "An optional component (or list of components) to fetch (or all if not specified)",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
+    },
+    "filter": {
+      "description": "Package query filter that is applied to packages in the mirror",
+      "type": "Optional[String[1]]"
+    },
+    "filter_with_deps": {
+      "description": "When filtering, include dependencies of matching packages as well",
+      "type": "Optional[Boolean]"
+    },
+    "force_architectures": {
+      "description": "Skip check that requested architectures are listed in Release file",
+      "type": "Optional[Boolean]"
+    },
+    "force_components": {
+      "description": "Skip check that requested architectures are listed in Release file",
+      "type": "Optional[Boolean]"
+    },
+    "ignore_signatures": {
+      "description": "Disable verification of Release file signatures",
+      "type": "Optional[Boolean]"
+    },
+    "keyring": {
+      "description": "GPG keyring(s) to use when verifying Release file",
+      "type": "Optional[Variant[Stdlib::Absolutepath,Array[Stdlib::Absolutepath]]]"
+    },
+    "max_tries": {
+      "description": "Max download tries till process fails with download error",
+      "type": "Optional[Integer[0]]"
+    },
+    "with_installer": {
+      "description": "Download additional not packaged installer files",
+      "type": "Optional[Boolean]"
+    },
+    "with_sources": {
+      "description": "Download source packages in addition to binary packages",
+      "type": "Optional[Boolean]"
+    },
+    "with_udebs": {
+      "description": "Download .udeb packages (Debian installer support)",
+      "type": "Optional[Boolean]"
+    },
+    "architectures": {
+      "description": "List of architectures to consider (or all available if not specified)",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "dep_follow_all_variants": {
+      "description": "When processing dependencies, follow a & b if dependency is 'a|b'",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_recommends": {
+      "description": "When processing dependencies, follow Recommends",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_source": {
+      "description": "When processing dependencies, follow from binary to Source packages",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_suggests": {
+      "description": "When processing dependencies, follow Suggests",
+      "type": "Optional[Boolean]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}

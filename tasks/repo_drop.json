@@ -1,0 +1,28 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Delete the repo",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "name": {
+      "description": "Repository name",
+      "type": "String[1]"
+    },
+    "force": {
+      "description": "Force repo deletion even if used by snapshots",
+      "type": "Optional[Boolean]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}
