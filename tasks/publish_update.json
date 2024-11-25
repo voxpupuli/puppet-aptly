@@ -1,0 +1,88 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Update published repository by switching to new snapshot",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "distribution": {
+      "description": "Distribution name of published repository",
+      "type": "Optional[String[1]]"
+    },
+    "prefix": {
+      "description": "Publishing prefix (may include endpoint)",
+      "type": "String[1]"
+    },
+    "batch": {
+      "description": "Run GPG with detached tty",
+      "type": "Optional[Boolean]"
+    },
+    "force_overwrite": {
+      "description": "Overwrite files in package pool in case of mismatch",
+      "type": "Optional[Boolean]"
+    },
+    "gpg_key": {
+      "description": "GPG key ID to use when signing the release",
+      "type": "Optional[String[1]]"
+    },
+    "keyring": {
+      "description": "GPG keyring(s) to use (instead of default)",
+      "type": "Optional[Variant[Stdlib::Absolutepath,Array[Stdlib::Absolutepath]]]"
+    },
+    "passphrase_file": {
+      "description": "GPG passphrase-file for the key",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "secret_keyring": {
+      "description": "GPG secret keyring to use (instead of default)",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "skip_bz2": {
+      "description": "Don't generate bzipped indexes",
+      "type": "Optional[Boolean]"
+    },
+    "skip_cleanup": {
+      "description": "Don't remove unreferenced files in prefix/component",
+      "type": "Optional[Boolean]"
+    },
+    "skip_contents": {
+      "description": "Don't generate Contents indexes",
+      "type": "Optional[Boolean]"
+    },
+    "skip_signing": {
+      "description": "Don't sign Release files with GPG",
+      "type": "Optional[Boolean]"
+    },
+    "architectures": {
+      "description": "List of architectures to consider (or all available if not specified)",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "dep_follow_all_variants": {
+      "description": "When processing dependencies, follow a & b if dependency is 'a|b'",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_recommends": {
+      "description": "When processing dependencies, follow Recommends",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_source": {
+      "description": "When processing dependencies, follow from binary to Source packages",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_suggests": {
+      "description": "When processing dependencies, follow Suggests",
+      "type": "Optional[Boolean]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}

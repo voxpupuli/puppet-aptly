@@ -1,0 +1,116 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Publish the snapshot(s)",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "name": {
+      "description": "Repository name to publish",
+      "type": "String[1]"
+    },
+    "prefix": {
+      "description": "Publishing prefix (may include endpoint)",
+      "type": "String[1]"
+    },
+    "acquire_by_hash": {
+      "description": "Provide index files by hash",
+      "type": "Optional[Boolean]"
+    },
+    "batch": {
+      "description": "Run GPG with detached tty",
+      "type": "Optional[Boolean]"
+    },
+    "but_automatic_upgrades": {
+      "description": "Overwrite value for ButAutomaticUpgrades field",
+      "type": "Optional[String[1]]"
+    },
+    "component": {
+      "description": "Component name (or list of components) to publish",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
+    },
+    "distribution": {
+      "description": "Distribution name to publish",
+      "type": "Optional[String[1]]"
+    },
+    "force_overwrite": {
+      "description": "Overwrite files in package pool in case of mismatch",
+      "type": "Optional[Boolean]"
+    },
+    "gpg_key": {
+      "description": "GPG key ID to use when signing the release",
+      "type": "Optional[String[1]]"
+    },
+    "keyring": {
+      "description": "GPG keyring(s) to use (instead of default)",
+      "type": "Optional[Variant[Stdlib::Absolutepath,Array[Stdlib::Absolutepath]]]"
+    },
+    "label": {
+      "description": "Label to publish",
+      "type": "Optional[String[1]]"
+    },
+    "not_automatic": {
+      "description": "Overwrite value for NotAutomatic field",
+      "type": "Optional[String[1]]"
+    },
+    "origin": {
+      "description": "Overwrite origin name to publish",
+      "type": "Optional[String[1]]"
+    },
+    "passphrase_file": {
+      "description": "GPG passphrase-file for the key",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "secret_keyring": {
+      "description": "GPG secret keyring to use (instead of default)",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "skip_bz2": {
+      "description": "Don't generate bzipped indexes",
+      "type": "Optional[Boolean]"
+    },
+    "skip_contents": {
+      "description": "Don't generate Contents indexes",
+      "type": "Optional[Boolean]"
+    },
+    "skip_signing": {
+      "description": "Don't sign Release files with GPG",
+      "type": "Optional[Boolean]"
+    },
+    "suite": {
+      "description": "Suite to publish (defaults to distribution)",
+      "type": "Optional[String[1]]"
+    },
+    "architectures": {
+      "description": "List of architectures to consider (or all available if not specified)",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "dep_follow_all_variants": {
+      "description": "When processing dependencies, follow a & b if dependency is 'a|b'",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_recommends": {
+      "description": "When processing dependencies, follow Recommends",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_source": {
+      "description": "When processing dependencies, follow from binary to Source packages",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_suggests": {
+      "description": "When processing dependencies, follow Suggests",
+      "type": "Optional[Boolean]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}

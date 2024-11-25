@@ -1,0 +1,40 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Add package to local repository",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "name": {
+      "description": "Repository name",
+      "type": "String[1]"
+    },
+    "package": {
+      "description": "Package name to add (mutually exclusive with directory)",
+      "type": "Optional[String[1]]"
+    },
+    "directory": {
+      "description": "Directory to add packages from (mutually exclusive with package)",
+      "type": "Optional[String[1]]"
+    },
+    "force_replace": {
+      "description": "When adding package that conflicts with existing package, remove existing package",
+      "type": "Optional[Boolean]"
+    },
+    "remove_files": {
+      "description": "Remove files that have been imported successfully into repository",
+      "type": "Optional[Boolean]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}

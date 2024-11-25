@@ -1,0 +1,36 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Stop publishing repository",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "distribution": {
+      "description": "Distribution name of published repository",
+      "type": "Optional[String[1]]"
+    },
+    "prefix": {
+      "description": "Publishing prefix (may include endpoint)",
+      "type": "String[1]"
+    },
+    "force_drop": {
+      "description": "Remove published repository even if some files could not be cleaned up",
+      "type": "Optional[Boolean]"
+    },
+    "skip_cleanup": {
+      "description": "Don't remove unreferenced files in prefix/component",
+      "type": "Optional[Boolean]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}

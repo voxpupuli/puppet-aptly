@@ -1,0 +1,76 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Update the mirror",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "name": {
+      "description": "Mirror name",
+      "type": "String[1]"
+    },
+    "download_limit": {
+      "description": "Limit download speed (kbytes/sec)",
+      "type": "Optional[Integer[0]]"
+    },
+    "downloader": {
+      "description": "Downloader to use",
+      "type": "Optional[Enum['default','grab']]"
+    },
+    "force": {
+      "description": "Force update mirror even if it is locked by another process",
+      "type": "Optional[Boolean]"
+    },
+    "ignore_checksums": {
+      "description": "Ignore checksum mismatches while downloading package files and metadata",
+      "type": "Optional[Boolean]"
+    },
+    "ignore_signatures": {
+      "description": "Disable verification of Release file signatures",
+      "type": "Optional[Boolean]"
+    },
+    "keyring": {
+      "description": "GPG keyring(s) to use when verifying Release file",
+      "type": "Optional[Variant[Stdlib::Absolutepath,Array[Stdlib::Absolutepath]]]"
+    },
+    "max_tries": {
+      "description": "Max download tries till process fails with download error",
+      "type": "Optional[Integer[0]]"
+    },
+    "skip_existing_packages": {
+      "description": "Do not check file existence for packages listed in the internal database of the mirror",
+      "type": "Optional[Boolean]"
+    },
+    "architectures": {
+      "description": "List of architectures to consider (or all available if not specified)",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "dep_follow_all_variants": {
+      "description": "When processing dependencies, follow a & b if dependency is 'a|b'",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_recommends": {
+      "description": "When processing dependencies, follow Recommends",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_source": {
+      "description": "When processing dependencies, follow from binary to Source packages",
+      "type": "Optional[Boolean]"
+    },
+    "dep_follow_suggests": {
+      "description": "When processing dependencies, follow Suggests",
+      "type": "Optional[Boolean]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}
