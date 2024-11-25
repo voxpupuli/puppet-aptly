@@ -16,23 +16,15 @@ class aptly::api (
   Enum['none','log'] $log           = 'none',
   Boolean $enable_cli_and_http      = false,
 ) {
-  if $facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '15.04') < 0 {
-    file { 'aptly-upstart':
-      path    => '/etc/init/aptly-api.conf',
-      content => template('aptly/etc/aptly-api.init.erb'),
-      notify  => Service['aptly-api'],
-    }
-  } else {
-    file { 'aptly-systemd':
-      path    => '/etc/systemd/system/aptly-api.service',
-      content => template('aptly/etc/aptly-api.systemd.erb'),
-    }
-    ~> exec { 'aptly-api-systemd-reload':
-      command     => 'systemctl daemon-reload',
-      path        => ['/usr/bin', '/bin', '/usr/sbin'],
-      refreshonly => true,
-      notify      => Service['aptly-api'],
-    }
+  file { 'aptly-systemd':
+    path    => '/etc/systemd/system/aptly-api.service',
+    content => template('aptly/etc/aptly-api.systemd.erb'),
+  }
+  ~> exec { 'aptly-api-systemd-reload':
+    command     => 'systemctl daemon-reload',
+    path        => ['/usr/bin', '/bin', '/usr/sbin'],
+    refreshonly => true,
+    notify      => Service['aptly-api'],
   }
 
   service { 'aptly-api':
