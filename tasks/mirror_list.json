@@ -1,0 +1,20 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "List mirrors",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/cli_helper.rb"
+  ],
+  "parameters": {
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    },
+    "aptly_binary_path": {
+      "description": "Location of the `aptly` binary if not in PATH",
+      "type": "Optional[String[1]]"
+    }
+  }
+}
