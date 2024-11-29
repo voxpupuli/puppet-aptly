@@ -415,5 +415,27 @@ describe 'aptly::mirror' do
         end
       end
     end
+
+    describe '#force_components' do
+      context 'with boolean true' do
+        let(:params) do
+          {
+            location: 'http://repo.example.com',
+            key: {
+              id: 'ABC123',
+              server: 'keyserver.ubuntu.com'
+            },
+            force_components: true,
+            release: 'precise'
+          }
+        end
+
+        it {
+          is_expected.to contain_exec('aptly_mirror_create-example').with_command(
+            %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -force-components example http://repo.example.com precise}
+          )
+        }
+      end
+    end
   end
 end
