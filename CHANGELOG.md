@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.2.0](https://github.com/voxpupuli/puppet-aptly/tree/v2.2.0) (2025-02-11)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v2.1.0...v2.2.0)
+
+**Implemented enhancements:**
+
+- Drop unused upstart template [\#38](https://github.com/voxpupuli/puppet-aptly/pull/38) ([jay7x](https://github.com/jay7x))
+- Add Ubuntu 24.04 [\#37](https://github.com/voxpupuli/puppet-aptly/pull/37) ([jay7x](https://github.com/jay7x))
+- Drop upstart support, refactor unit tests [\#36](https://github.com/voxpupuli/puppet-aptly/pull/36) ([jay7x](https://github.com/jay7x))
+- Add Aptly Bolt tasks [\#34](https://github.com/voxpupuli/puppet-aptly/pull/34) ([jay7x](https://github.com/jay7x))
+- Add support for -force-components flag [\#30](https://github.com/voxpupuli/puppet-aptly/pull/30) ([mdechiaro](https://github.com/mdechiaro))
+
+**Merged pull requests:**
+
+- puppetlabs/apt: Allow 10.x [\#40](https://github.com/voxpupuli/puppet-aptly/pull/40) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.1.0](https://github.com/voxpupuli/puppet-aptly/tree/v2.1.0) (2024-02-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v2.0.0...v2.1.0)
