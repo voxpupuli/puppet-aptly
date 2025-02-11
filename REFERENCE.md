@@ -232,6 +232,7 @@ The following parameters are available in the `aptly::mirror` defined type:
 * [`filter_with_deps`](#-aptly--mirror--filter_with_deps)
 * [`environment`](#-aptly--mirror--environment)
 * [`keyring`](#-aptly--mirror--keyring)
+* [`force_components`](#-aptly--mirror--force_components)
 
 ##### <a name="-aptly--mirror--location"></a>`location`
 
@@ -318,6 +319,14 @@ Data type: `String`
 path to the keyring used by aptly
 
 Default value: `'/etc/apt/trusted.gpg'`
+
+##### <a name="-aptly--mirror--force_components"></a>`force_components`
+
+Data type: `Boolean`
+
+Boolean to control whether Aptly should force download of components.
+
+Default value: `false`
 
 ### <a name="aptly--repo"></a>`aptly::repo`
 

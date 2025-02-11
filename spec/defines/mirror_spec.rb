@@ -5,9 +5,9 @@ require 'spec_helper'
 describe 'aptly::mirror' do
   let(:title) { 'example' }
 
-  on_supported_os.each do |os, facts|
-    context "on #{os} with Facter #{facts[:facterversion]} and Puppet #{facts[:puppetversion]}" do
-      let(:facts) { facts }
+  on_supported_os.each do |os, os_facts|
+    context "on #{os} with Facter #{os_facts[:facterversion]} and Puppet #{os_facts[:puppetversion]}" do
+      let(:facts) { os_facts }
 
       describe 'param defaults and mandatory' do
         let(:params) do
@@ -412,6 +412,28 @@ describe 'aptly::mirror' do
               %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter="this is a string" example http://repo.example.com precise}
             )
           end
+        end
+      end
+
+      describe '#force_components' do
+        context 'with boolean true' do
+          let(:params) do
+            {
+              location: 'http://repo.example.com',
+              key: {
+                id: 'ABC123',
+                server: 'keyserver.ubuntu.com'
+              },
+              force_components: true,
+              release: 'precise'
+            }
+          end
+
+          it {
+            is_expected.to contain_exec('aptly_mirror_create-example').with_command(
+              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -force-components example http://repo.example.com precise}
+            )
+          }
         end
       end
     end
