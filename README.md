@@ -43,7 +43,7 @@ or with the [puppetlabs/apt](https://forge.puppet.com/puppetlabs/apt)  module 2.
 aptly::mirror { 'puppetlabs':
   location => 'http://apt.puppetlabs.com/',
   repos    => ['main', 'dependencies'],
-  key      =>  {
+  key      => {
     server => 'keyserver.ubuntu.com',
     id     => '4BD6EC30',
   }
@@ -53,7 +53,7 @@ aptly::mirror { 'puppetlabs':
 Create an aptly repository to host local packages:
 
 ```puppet
-aptly::repo{ 'mylocalrepo': }
+aptly::repo { 'mylocalrepo': }
 ```
 
 See the class and defined type documentation for advanced usage.
