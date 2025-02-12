@@ -16,19 +16,9 @@ class aptly::api (
   Enum['none','log'] $log           = 'none',
   Boolean $enable_cli_and_http      = false,
 ) {
-  file { 'aptly-systemd':
-    path    => '/etc/systemd/system/aptly-api.service',
+  systemd::unit_file { 'aptly-api.service':
     content => template('aptly/etc/aptly-api.systemd.erb'),
-  }
-  ~> exec { 'aptly-api-systemd-reload':
-    command     => 'systemctl daemon-reload',
-    path        => ['/usr/bin', '/bin', '/usr/sbin'],
-    refreshonly => true,
-    notify      => Service['aptly-api'],
-  }
-
-  service { 'aptly-api':
-    ensure => $ensure,
-    enable => true,
+    active  => $ensure == 'running',
+    enable  => true,
   }
 }
