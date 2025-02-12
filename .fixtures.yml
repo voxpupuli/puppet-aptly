@@ -4,3 +4,4 @@ fixtures:
     apt: "https://github.com/puppetlabs/puppetlabs-apt.git"
     ruby_task_helper: "https://github.com/puppetlabs/puppetlabs-ruby_task_helper.git"
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    systemd: 'https://github.com/voxpupuli/puppet-systemd.git'
