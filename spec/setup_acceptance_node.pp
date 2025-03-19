@@ -2,27 +2,28 @@
 
 # There are no packages for Debian 12 and Ubuntu 24.04 (noble) yet...
 # Install puppet-tools from previous version in this case
-case [$facts.get('os.name'), $facts.get('os.distro.release.major')] {
-  ['Debian', '12']: {
+# required because the repo provides bolt, and OpenVox doesn't have packages yet
+case $facts.get('os.name') {
+  'Debian': {
     apt::source { 'puppet-tools-bullseye':
       location => 'http://apt.puppet.com',
       release  => 'bullseye',
       repos    => 'puppet-tools',
       key      => {
         'source' => 'https://apt.puppet.com/keyring.gpg',
-        'name'   => 'puppet.gpg',
+        'name'   => 'puppetlabs-keyring.gpg',
       },
       before   => Package['puppet-bolt'],
     }
   }
-  ['Ubuntu', '24.04']: {
+  'Ubuntu': {
     apt::source { 'puppet-tools-jammy':
       location => 'http://apt.puppet.com',
       release  => 'jammy',
       repos    => 'puppet-tools',
       key      => {
         'source' => 'https://apt.puppet.com/keyring.gpg',
-        'name'   => 'puppet.gpg',
+        'name'   => 'puppetlabs-keyring.gpg',
       },
       before   => Package['puppet-bolt'],
     }
