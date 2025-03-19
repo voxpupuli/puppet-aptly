@@ -37,7 +37,7 @@ class aptly (
   }
 
   package { 'aptly':
-    ensure  => $package_ensure,
+    ensure => $package_ensure,
   }
 
   $config_file_contents = $config_contents ? {
