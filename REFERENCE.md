@@ -74,7 +74,7 @@ Data type: `String`
 
 Ensure parameter to pass to the package resource.
 
-Default value: `'present'`
+Default value: `'installed'`
 
 ##### <a name="-aptly--config_file"></a>`config_file`
 

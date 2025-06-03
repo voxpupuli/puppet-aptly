@@ -12,7 +12,7 @@
 # @param aptly_mirrors Hash of aptly mirrors which is passed to aptly::mirror
 #
 class aptly (
-  String $package_ensure            = 'present',
+  String $package_ensure            = 'installed',
   Stdlib::Absolutepath $config_file = '/etc/aptly.conf',
   Hash $config                      = {},
   Optional[String] $config_contents = undef,
