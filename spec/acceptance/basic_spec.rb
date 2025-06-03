@@ -12,6 +12,9 @@ describe 'aptly class' do
         PUPPET
       end
     end
+    describe command('aptly version') do
+      its(:stdout) { is_expected.to match %(aptly version) }
+    end
   end
 
   context 'mirror' do
