@@ -27,8 +27,8 @@ class aptly (
       location => 'http://repo.aptly.info/release',
       repos    => 'main',
       key      => {
-        server => $key_server,
-        id     => '78D6517AB92E22947F577996A0546A43624A8331',
+        name   => 'aptly.asc',
+        source => 'https://www.aptly.info/pubkey.txt',
       },
     }
 
