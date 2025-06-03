@@ -3,17 +3,52 @@
 require 'spec_helper_acceptance'
 
 describe 'aptly class' do
-  context 'default parameters' do
+  context 'with distro package' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
         <<-PUPPET
         include apt
-        include aptly
+        class { 'aptly':
+          repo => false,
+        }
         PUPPET
       end
     end
     describe command('aptly version') do
       its(:stdout) { is_expected.to match %(aptly version) }
+    end
+
+    describe command('aptly mirror list') do
+      its(:stdout) { is_expected.to match %(No mirrors found) }
+    end
+
+    describe command('aptly repo list') do
+      its(:stdout) { is_expected.to match %(No local repositories found) }
+    end
+  end
+
+  context 'with aptly.info package' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        include apt
+        class { 'aptly':
+          repo           => true,
+          package_ensure => 'latest',
+        }
+        PUPPET
+      end
+    end
+    describe command('aptly version') do
+      its(:stdout) { is_expected.to match %(aptly version) }
+    end
+
+    describe command('aptly mirror list') do
+      its(:stdout) { is_expected.to match %(No mirrors found) }
+    end
+
+    describe command('aptly repo list') do
+      its(:stdout) { is_expected.to match %(No local repositories found) }
     end
   end
 
@@ -49,6 +84,13 @@ describe 'aptly class' do
     end
     describe command('aptly mirror show puppetlabs') do
       its(:stdout) { is_expected.to match %r{Archive Root URL: https://apt.puppet.com/} }
+    end
+
+    # ensures that we have an aptly version with json support,
+    # available since 1.5.0
+    # https://github.com/aptly-dev/aptly/releases/tag/v1.5.0
+    describe command('aptly mirror list -json') do
+      its(:stdout) { is_expected.to match %(puppetlabs) }
     end
   end
 end

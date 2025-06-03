@@ -19,7 +19,7 @@ describe 'aptly' do
         context 'present (default)' do
           let(:params) { {} }
 
-          it { is_expected.to contain_package('aptly').with_ensure('present') }
+          it { is_expected.to contain_package('aptly').with_ensure('installed') }
         end
 
         context '1.2.3' do
