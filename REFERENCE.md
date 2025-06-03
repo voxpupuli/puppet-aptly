@@ -110,7 +110,7 @@ Default value: `true`
 
 ##### <a name="-aptly--key_server"></a>`key_server`
 
-Data type: `String`
+Data type: `Stdlib::Fqdn`
 
 Key server to use when `$repo` is true.
 

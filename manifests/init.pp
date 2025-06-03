@@ -17,7 +17,7 @@ class aptly (
   Hash $config                      = {},
   Optional[String] $config_contents = undef,
   Boolean $repo                     = true,
-  String $key_server                = 'keyserver.ubuntu.com',
+  Stdlib::Fqdn $key_server          = 'keyserver.ubuntu.com',
   String $user                      = 'root',
   Hash $aptly_repos                 = {},
   Hash $aptly_mirrors               = {},
