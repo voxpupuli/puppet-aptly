@@ -8,6 +8,10 @@ case [$facts.get('os.name'), $facts.get('os.distro.release.major')] {
       location => 'http://apt.puppet.com',
       release  => 'bullseye',
       repos    => 'puppet-tools',
+      key      => {
+        'source' => 'https://apt.puppet.com/keyring.gpg',
+        'name'   => 'puppet.gpg',
+      },
       before   => Package['puppet-bolt'],
     }
   }
@@ -16,6 +20,10 @@ case [$facts.get('os.name'), $facts.get('os.distro.release.major')] {
       location => 'http://apt.puppet.com',
       release  => 'jammy',
       repos    => 'puppet-tools',
+      key      => {
+        'source' => 'https://apt.puppet.com/keyring.gpg',
+        'name'   => 'puppet.gpg',
+      },
       before   => Package['puppet-bolt'],
     }
   }
