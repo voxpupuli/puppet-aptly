@@ -53,6 +53,14 @@ class aptly (
   $aptly_cmd = "/usr/bin/aptly -config ${config_file}"
 
   # Hiera support
-  create_resources('::aptly::repo', $aptly_repos)
-  create_resources('::aptly::mirror', $aptly_mirrors)
+  $aptly_repos.each| String[1] $key, Hash $values| {
+    aptly::repo { $key:
+      * => $values,
+    }
+  }
+  $aptly_mirrors.each| String[1] $key, Hash $values| {
+    aptly::mirror { $key:
+      * => $values,
+    }
+  }
 }
