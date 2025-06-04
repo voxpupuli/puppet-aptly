@@ -48,11 +48,10 @@ define aptly::mirror (
     $architectures_arg = "-architectures='${architectures_as_s}'"
   }
 
-  if empty($repos) {
-    $components_arg = ''
+  $components_arg = if empty($repos) {
+    ''
   } else {
-    $components = join($repos, ' ')
-    $components_arg = " ${components}"
+    " ${join($repos, ' ')}"
   }
 
   $filter_arg = if $filter {
@@ -61,10 +60,10 @@ define aptly::mirror (
     ''
   }
 
-  if ($filter_with_deps == true) {
-    $filter_with_deps_arg = ' -filter-with-deps'
+  $filter_with_deps_arg = if $filter_with_deps {
+    ' -filter-with-deps'
   } else {
-    $filter_with_deps_arg = ''
+    ''
   }
 
   # $aptly::key_server will be used as default key server
