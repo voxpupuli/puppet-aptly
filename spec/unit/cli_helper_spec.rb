@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'cli_helper'
+require_relative '../../lib/puppet_x/voxpupuli/aptly/cli_helper'
 
-describe Aptly::CliHelper do
+describe PuppetX::Aptly::CliHelper do
   let(:capture3_success) do
     rc = instance_double(Process::Status)
     allow(rc).to receive(:success?).and_return(true)

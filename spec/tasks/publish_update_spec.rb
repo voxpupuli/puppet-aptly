@@ -8,7 +8,7 @@ describe AptlyPublishUpdateTask do
   let(:task) { described_class.new }
   let(:opts) { { cli_helper: aptly_helper } }
   let(:aptly_helper) do
-    helper = instance_double(Aptly::CliHelper)
+    helper = instance_double(PuppetX::Aptly::CliHelper)
     helper
   end
 

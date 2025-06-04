@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require 'puppet_x'
+
 # Aptly CLI helper
-module Aptly
+module PuppetX::Aptly
   # Define CLI helper error class
   class Error < StandardError
   end
@@ -104,17 +106,17 @@ module Aptly
 
       case from
       when 'mirror'
-        raise Aptly::Error, '`mirror` option should be defined' unless options[:mirror]
+        raise PuppetX::Aptly::Error, '`mirror` option should be defined' unless options[:mirror]
 
         cmd += ['from', 'mirror', options[:mirror]]
       when 'repo'
-        raise Aptly::Error, '`repo` option should be defined' unless options[:repo]
+        raise PuppetX::Aptly::Error, '`repo` option should be defined' unless options[:repo]
 
         cmd += ['from', 'repo', options[:repo]]
       when 'empty'
         cmd += %w[empty]
       else
-        raise Aptly::Error, '`from` argument must be one of: mirror, repo, empty'
+        raise PuppetX::Aptly::Error, '`from` argument must be one of: mirror, repo, empty'
       end
 
       execute(cmd)
@@ -235,14 +237,14 @@ module Aptly
       out, err, status = Open3.capture3(*cmd)
       return JSON.parse(out) if status.success?
 
-      raise Aptly::Error, "`#{cmd.join(' ')}` failed with status #{status.exitstatus}: #{err}"
+      raise PuppetX::Aptly::Error, "`#{cmd.join(' ')}` failed with status #{status.exitstatus}: #{err}"
     end
 
     def execute(cmd)
       _out, err, status = Open3.capture3(*cmd)
       return true if status.success?
 
-      raise Aptly::Error, "`#{cmd.join(' ')}` failed with status #{status.exitstatus}: #{err}"
+      raise PuppetX::Aptly::Error, "`#{cmd.join(' ')}` failed with status #{status.exitstatus}: #{err}"
     end
   end
 end

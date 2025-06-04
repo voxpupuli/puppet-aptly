@@ -5,7 +5,7 @@
   "input_method": "stdin",
   "files": [
     "ruby_task_helper/files/task_helper.rb",
-    "aptly/lib/cli_helper.rb"
+    "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
   ],
   "parameters": {
     "distribution": {
