@@ -50,6 +50,10 @@ describe 'aptly class' do
     describe command('aptly repo list') do
       its(:stdout) { is_expected.to match %(No local repositories found) }
     end
+
+    describe command('cat /etc/apt/sources.list.d/aptly.list') do
+      its(:stdout) { is_expected.to match %(aptly) }
+    end
   end
 
   context 'mirror' do

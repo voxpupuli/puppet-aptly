@@ -29,21 +29,6 @@ describe 'aptly' do
         end
       end
 
-      describe '#key_server (with #repo default to true)' do
-        context 'custom key_server' do
-          let(:params) { { key_server: 'keyserver.ubuntu.com' } }
-
-          it 'overrides apt::source (somekeyserver.com)' do
-            is_expected.to contain_apt__source('aptly').with(
-              key: {
-                'server' => 'keyserver.ubuntu.com',
-                'id' => '78D6517AB92E22947F577996A0546A43624A8331'
-              }
-            )
-          end
-        end
-      end
-
       describe '#config_file' do
         context 'not an absolute path' do
           let(:params) { { config_file: 'relativepath/aptly.conf' } }
