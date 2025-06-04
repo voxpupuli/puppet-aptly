@@ -148,6 +148,46 @@ describe PuppetX::Aptly::CliHelper do
     end
   end
 
+  describe '#mirror_edit' do
+    let(:args) do
+      [
+        'bookworm-main',
+        {
+          architectures: %w[amd64 arm64],
+          dep_follow_all_variants: true,
+          dep_follow_recommends: true,
+          dep_follow_source: true,
+          dep_follow_suggests: true,
+          archive_url: 'http://deb.debian.org/debian/',
+          filter: 'foo',
+          filter_with_deps: true,
+          ignore_signatures: true,
+          keyring: ['/home/aptly/example_keyring1.gpg', '/home/aptly/example_keyring2.gpg'],
+          with_installer: true,
+          with_sources: true,
+          with_udebs: true,
+        }
+      ]
+    end
+    let(:cmd) do
+      %w[
+        aptly mirror edit -architectures=amd64,arm64 -dep-follow-all-variants
+        -dep-follow-recommends -dep-follow-source -dep-follow-suggests
+        -archive-url=http://deb.debian.org/debian/
+        -filter=foo -filter-with-deps -ignore-signatures
+        -keyring=/home/aptly/example_keyring1.gpg
+        -keyring=/home/aptly/example_keyring2.gpg
+        -with-installer -with-sources -with-udebs
+        bookworm-main
+      ]
+    end
+
+    specify do
+      cli_helper.mirror_edit(*args)
+      expect(Open3).to have_received(:capture3).with(*cmd).once
+    end
+  end
+
   describe '#repo_create' do
     let(:opts) do
       {

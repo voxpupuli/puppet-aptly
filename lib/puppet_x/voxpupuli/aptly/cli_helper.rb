@@ -57,6 +57,22 @@ module PuppetX::Aptly
       something_drop('mirror', name, options)
     end
 
+    def mirror_edit(name, options = {})
+      cmd = [@aptly, 'mirror', 'edit']
+      cmd += parse_common_options(options)
+      cmd << "-archive-url=#{options[:archive_url]}" if options[:archive_url]
+      cmd << "-filter=#{options[:filter]}" if options[:filter]
+      cmd << '-filter-with-deps' if options[:filter_with_deps]
+      cmd << '-ignore-signatures' if options[:ignore_signatures]
+      cmd += Array(options[:keyring]).map { |x| "-keyring=#{x}" }
+      cmd << '-with-installer' if options[:with_installer]
+      cmd << '-with-sources' if options[:with_sources]
+      cmd << '-with-udebs' if options[:with_udebs]
+      cmd << name
+
+      execute(cmd)
+    end
+
     def repo_create(name, options = {})
       cmd = [@aptly, 'repo', 'create']
       cmd += parse_common_options(options)
