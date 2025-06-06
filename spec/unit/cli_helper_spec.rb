@@ -19,8 +19,7 @@ describe PuppetX::Aptly::CliHelper do
   let(:capture3_result) { capture3_success }
   let(:capture3_out) { '' }
   let(:capture3_err) { '' }
-  let(:init_args) { {} }
-  let(:cli_helper) { described_class.new(init_args) }
+  let(:cli_helper) { described_class }
 
   before do
     allow(Open3).to receive(:capture3).with(*cmd).and_return([capture3_out, capture3_err, capture3_result])
