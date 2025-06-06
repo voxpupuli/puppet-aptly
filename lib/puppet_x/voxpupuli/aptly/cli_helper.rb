@@ -222,7 +222,7 @@ module PuppetX::Aptly
       cmd << '-skip-contents' if options[:skip_contents]
       cmd << '-skip-signing' if options[:skip_signing]
       cmd << distribution
-      cmd << prefix
+      cmd << prefix if prefix
 
       cmd += Array(snapshots) if how == 'switch'
 

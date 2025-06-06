@@ -3,8 +3,14 @@
   "supports_noop": false,
   "description": "Create new mirror",
   "input_method": "stdin",
+  "implementations": [
+    {
+      "name": "mirror.rb"
+    }
+  ],
   "files": [
     "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/aptly_task_helper.rb",
     "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
   ],
   "parameters": {
@@ -37,7 +43,7 @@
       "type": "Optional[Boolean]"
     },
     "force_components": {
-      "description": "Skip check that requested architectures are listed in Release file",
+      "description": "Skip check that requested components are listed in Release file",
       "type": "Optional[Boolean]"
     },
     "ignore_signatures": {
@@ -87,10 +93,6 @@
     "dep_follow_suggests": {
       "description": "When processing dependencies, follow Suggests",
       "type": "Optional[Boolean]"
-    },
-    "aptly_binary_path": {
-      "description": "Location of the `aptly` binary if not in PATH",
-      "type": "Optional[String[1]]"
     }
   }
 }

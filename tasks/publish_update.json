@@ -1,20 +1,26 @@
 {
   "puppet_task_version": 1,
   "supports_noop": false,
-  "description": "Update published repository by switching to new snapshot",
+  "description": "Update published local repository",
   "input_method": "stdin",
+  "implementations": [
+    {
+      "name": "publish.rb"
+    }
+  ],
   "files": [
     "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/aptly_task_helper.rb",
     "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
   ],
   "parameters": {
     "distribution": {
       "description": "Distribution name of published repository",
-      "type": "Optional[String[1]]"
+      "type": "String[1]"
     },
     "prefix": {
       "description": "Publishing prefix (may include endpoint)",
-      "type": "String[1]"
+      "type": "Optional[String[1]]"
     },
     "batch": {
       "description": "Run GPG with detached tty",
@@ -79,10 +85,6 @@
     "dep_follow_suggests": {
       "description": "When processing dependencies, follow Suggests",
       "type": "Optional[Boolean]"
-    },
-    "aptly_binary_path": {
-      "description": "Location of the `aptly` binary if not in PATH",
-      "type": "Optional[String[1]]"
     }
   }
 }
