@@ -3,8 +3,14 @@
   "supports_noop": false,
   "description": "Publish the snapshot(s)",
   "input_method": "stdin",
+  "implementations": [
+    {
+      "name": "publish.rb"
+    }
+  ],
   "files": [
     "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/aptly_task_helper.rb",
     "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
   ],
   "parameters": {
@@ -14,7 +20,7 @@
     },
     "prefix": {
       "description": "Publishing prefix (may include endpoint)",
-      "type": "String[1]"
+      "type": "Optional[String[1]]"
     },
     "acquire_by_hash": {
       "description": "Provide index files by hash",
@@ -107,10 +113,6 @@
     "dep_follow_suggests": {
       "description": "When processing dependencies, follow Suggests",
       "type": "Optional[Boolean]"
-    },
-    "aptly_binary_path": {
-      "description": "Location of the `aptly` binary if not in PATH",
-      "type": "Optional[String[1]]"
     }
   }
 }
