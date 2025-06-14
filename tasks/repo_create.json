@@ -3,8 +3,14 @@
   "supports_noop": false,
   "description": "Create local repository",
   "input_method": "stdin",
+  "implementations": [
+    {
+      "name": "repo.rb"
+    }
+  ],
   "files": [
     "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/aptly_task_helper.rb",
     "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
   ],
   "parameters": {
@@ -55,10 +61,6 @@
     "dep_follow_suggests": {
       "description": "When processing dependencies, follow Suggests",
       "type": "Optional[Boolean]"
-    },
-    "aptly_binary_path": {
-      "description": "Location of the `aptly` binary if not in PATH",
-      "type": "Optional[String[1]]"
     }
   }
 }

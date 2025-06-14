@@ -38,7 +38,7 @@ to schedule these actions frequently in Puppet.
 * [`publish_repo`](#publish_repo): Publish the snapshot(s)
 * [`publish_snapshot`](#publish_snapshot): Publish the snapshot(s)
 * [`publish_switch`](#publish_switch): Update published repository by switching to new snapshot
-* [`publish_update`](#publish_update): Update published repository by switching to new snapshot
+* [`publish_update`](#publish_update): Update published local repository
 * [`repo_add`](#repo_add): Add package to local repository
 * [`repo_create`](#repo_create): Create local repository
 * [`repo_drop`](#repo_drop): Delete the repo
@@ -460,7 +460,7 @@ Skip check that requested architectures are listed in Release file
 
 Data type: `Optional[Boolean]`
 
-Skip check that requested architectures are listed in Release file
+Skip check that requested components are listed in Release file
 
 ##### `ignore_signatures`
 
@@ -534,12 +534,6 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="mirror_drop"></a>`mirror_drop`
 
 Delete the mirror
@@ -566,12 +560,6 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="mirror_list"></a>`mirror_list`
 
 List mirrors
@@ -585,12 +573,6 @@ List mirrors
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
 ### <a name="mirror_update"></a>`mirror_update`
 
@@ -690,12 +672,6 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="publish_drop"></a>`publish_drop`
 
 Stop publishing repository
@@ -706,13 +682,13 @@ Stop publishing repository
 
 ##### `distribution`
 
-Data type: `Optional[String[1]]`
+Data type: `String[1]`
 
 Distribution name of published repository
 
 ##### `prefix`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 Publishing prefix (may include endpoint)
 
@@ -734,12 +710,6 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="publish_list"></a>`publish_list`
 
 List published repositories
@@ -753,12 +723,6 @@ List published repositories
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
 ### <a name="publish_repo"></a>`publish_repo`
 
@@ -776,7 +740,7 @@ Repository name to publish
 
 ##### `prefix`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 Publishing prefix (may include endpoint)
 
@@ -917,12 +881,6 @@ When processing dependencies, follow from binary to Source packages
 Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
 ### <a name="publish_snapshot"></a>`publish_snapshot`
 
@@ -940,7 +898,7 @@ Snapshot name(s) to publish
 
 ##### `prefix`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 Publishing prefix (may include endpoint)
 
@@ -1082,12 +1040,6 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="publish_switch"></a>`publish_switch`
 
 Update published repository by switching to new snapshot
@@ -1098,13 +1050,13 @@ Update published repository by switching to new snapshot
 
 ##### `distribution`
 
-Data type: `Optional[String[1]]`
+Data type: `String[1]`
 
 Distribution name of published repository
 
 ##### `prefix`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 Publishing prefix (may include endpoint)
 
@@ -1216,15 +1168,9 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="publish_update"></a>`publish_update`
 
-Update published repository by switching to new snapshot
+Update published local repository
 
 **Supports noop?** false
 
@@ -1232,13 +1178,13 @@ Update published repository by switching to new snapshot
 
 ##### `distribution`
 
-Data type: `Optional[String[1]]`
+Data type: `String[1]`
 
 Distribution name of published repository
 
 ##### `prefix`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 Publishing prefix (may include endpoint)
 
@@ -1338,12 +1284,6 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="repo_add"></a>`repo_add`
 
 Add package to local repository
@@ -1387,12 +1327,6 @@ Remove files that have been imported successfully into repository
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
 ### <a name="repo_create"></a>`repo_create`
 
@@ -1474,12 +1408,6 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="repo_drop"></a>`repo_drop`
 
 Delete the repo
@@ -1506,12 +1434,6 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="repo_list"></a>`repo_list`
 
 List repos
@@ -1525,12 +1447,6 @@ List repos
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
 ### <a name="repo_remove"></a>`repo_remove`
 
@@ -1557,12 +1473,6 @@ Package query (or list of queries)
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
 ### <a name="snapshot_create"></a>`snapshot_create`
 
@@ -1632,12 +1542,6 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="snapshot_drop"></a>`snapshot_drop`
 
 Delete the snapshot
@@ -1664,12 +1568,6 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
 
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
-
 ### <a name="snapshot_list"></a>`snapshot_list`
 
 List snapshots
@@ -1683,10 +1581,4 @@ List snapshots
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
-
-##### `aptly_binary_path`
-
-Data type: `Optional[String[1]]`
-
-Location of the `aptly` binary if not in PATH
 
