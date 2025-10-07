@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.0.0](https://github.com/voxpupuli/puppet-aptly/tree/v3.0.0) (2025-10-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v2.3.0...v3.0.0)
+
+**Breaking changes:**
+
+- Require puppet 8 [\#65](https://github.com/voxpupuli/puppet-aptly/pull/65) ([bastelfreak](https://github.com/bastelfreak))
+- aptly repo: Do not hardcode squeeze OS & Don't pull aptly repo key from keyserver [\#55](https://github.com/voxpupuli/puppet-aptly/pull/55) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Ubuntu 20.04 support [\#50](https://github.com/voxpupuli/puppet-aptly/pull/50) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add Debian 13 support [\#63](https://github.com/voxpupuli/puppet-aptly/pull/63) ([bastelfreak](https://github.com/bastelfreak))
+- aptly::mirror: Cleanup variable logic [\#53](https://github.com/voxpupuli/puppet-aptly/pull/53) ([bastelfreak](https://github.com/bastelfreak))
+- Replace create\_resources\(\) with .each [\#52](https://github.com/voxpupuli/puppet-aptly/pull/52) ([bastelfreak](https://github.com/bastelfreak))
+- $key\_server: Use FQDN datatype [\#51](https://github.com/voxpupuli/puppet-aptly/pull/51) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Refactor CLI helper and tasks [\#58](https://github.com/voxpupuli/puppet-aptly/pull/58) ([jay7x](https://github.com/jay7x))
+
+**Merged pull requests:**
+
+- refactor: Make the CLI helper a Puppet eXtension [\#56](https://github.com/voxpupuli/puppet-aptly/pull/56) ([jay7x](https://github.com/jay7x))
+- Add acceptance test for aptly version [\#54](https://github.com/voxpupuli/puppet-aptly/pull/54) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.3.0](https://github.com/voxpupuli/puppet-aptly/tree/v2.3.0) (2025-02-12)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v2.2.0...v2.3.0)
