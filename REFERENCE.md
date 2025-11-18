@@ -27,6 +27,10 @@ repository for you, because it will take a long time and it doesn't make sense
 to schedule these actions frequently in Puppet.
 * [`aptly::snapshot`](#aptly--snapshot): Create a snapshot using `aptly snapshot`.
 
+### Resource types
+
+* [`aptly_mirror`](#aptly_mirror): Manage Aptly mirrors
+
 ### Tasks
 
 * [`mirror_create`](#mirror_create): Create new mirror
@@ -403,6 +407,105 @@ Data type: `Optional[String[1]]`
 Create snapshot from given mirror.
 
 Default value: `undef`
+
+## Resource types
+
+### <a name="aptly_mirror"></a>`aptly_mirror`
+
+This resource type provides Puppet with the capabilities to manage Aptly
+mirror by calling the `aptly` CLI.
+
+#### Properties
+
+The following properties are available in the `aptly_mirror` type.
+
+##### `architectures`
+
+Data type: `Optional[Variant[String[1],Array[String[1]]]]`
+
+List of architectures to consider (or all available if not specified)
+
+##### `component`
+
+Data type: `Optional[Variant[String[1],Array[String[1]]]]`
+
+An optional component (or list of components) to fetch (or all if not specified)
+
+##### `distribution`
+
+Data type: `String[1]`
+
+Distribution name
+
+##### `ensure`
+
+Data type: `Enum['present','absent']`
+
+Whether the mirror should be present or absent
+
+Default value: `present`
+
+##### `filter`
+
+Data type: `Optional[String]`
+
+Package query filter that is applied to packages in the mirror
+
+##### `filter_with_deps`
+
+Data type: `Optional[Boolean]`
+
+When filtering, include dependencies of matching packages as well
+
+##### `force_architectures`
+
+Data type: `Optional[Boolean]`
+
+Skip check that requested architectures are listed in Release file
+
+##### `force_components`
+
+Data type: `Optional[Boolean]`
+
+Skip check that requested architectures are listed in Release file
+
+##### `url`
+
+Data type: `Stdlib::HTTPUrl`
+
+Archive URL
+
+##### `with_installer`
+
+Data type: `Optional[Boolean]`
+
+Download additional not packaged installer files
+
+##### `with_sources`
+
+Data type: `Optional[Boolean]`
+
+Download source packages in addition to binary packages
+
+##### `with_udebs`
+
+Data type: `Optional[Boolean]`
+
+Download .udeb packages (Debian installer support)
+
+#### Parameters
+
+The following parameters are available in the `aptly_mirror` type.
+
+* [`name`](#-aptly_mirror--name)
+
+##### <a name="-aptly_mirror--name"></a>`name`
+
+namevar
+
+Data type: `String[1]`
+
+Mirror name
 
 ## Tasks
 
