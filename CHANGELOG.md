@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v3.1.0](https://github.com/voxpupuli/puppet-aptly/tree/v3.1.0) (2025-11-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v3.0.0...v3.1.0)
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 9.x [\#70](https://github.com/voxpupuli/puppet-aptly/pull/70) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/apt: Allow 11.x [\#69](https://github.com/voxpupuli/puppet-aptly/pull/69) ([bastelfreak](https://github.com/bastelfreak))
+- feat: implement aptly\_mirror type & provider [\#68](https://github.com/voxpupuli/puppet-aptly/pull/68) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-aptly/tree/v3.0.0) (2025-10-07)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v2.3.0...v3.0.0)
