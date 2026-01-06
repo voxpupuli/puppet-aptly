@@ -1,0 +1,30 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Shows details of published repository",
+  "input_method": "stdin",
+  "implementations": [
+    {
+      "name": "publish.rb"
+    }
+  ],
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/aptly_task_helper.rb",
+    "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
+  ],
+  "parameters": {
+    "distribution": {
+      "description": "Distribution name of published repository",
+      "type": "String[1]"
+    },
+    "prefix": {
+      "description": "Publishing prefix (may include endpoint)",
+      "type": "Optional[String[1]]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    }
+  }
+}

@@ -47,6 +47,16 @@ describe 'aptly bolt tasks' do
       end
     end
 
+    describe 'mirror_show' do
+      it 'shows mirrors' do
+        result = bolt_task_run("aptly::#{subject}", name: 'aptly')
+        aggregate_failures subject do
+          expect(result[subject]['Name']).to eq('aptly')
+          expect(result[subject]['ArchiveRoot']).to eq('http://repo.aptly.info/')
+        end
+      end
+    end
+
     describe 'mirror_update' do
       it 'updates mirror' do
         result = bolt_task_run("aptly::#{subject}", name: 'aptly', keyring: keyring)
@@ -70,6 +80,13 @@ describe 'aptly bolt tasks' do
       end
     end
 
+    describe 'snapshot_show' do
+      it 'shows snapshots' do
+        result = bolt_task_run("aptly::#{subject}", name: 'aptly-snapshot-123')
+        expect(result[subject]['Name']).to eq('aptly-snapshot-123')
+      end
+    end
+
     describe 'publish_snapshot' do
       it 'publishes snapshot' do
         result = bolt_task_run("aptly::#{subject}", name: 'aptly-snapshot-123', prefix: 'aptly', skip_signing: true, skip_bz2: true)
@@ -80,12 +97,23 @@ describe 'aptly bolt tasks' do
     end
 
     describe 'publish_list' do
-      it 'list published objects' do
+      it 'lists published objects' do
         result = bolt_task_run("aptly::#{subject}")
         aggregate_failures subject do
           expect(result[subject][0]['Prefix']).to eq('aptly')
           expect(result[subject][0]['Distribution']).to eq('squeeze')
           expect(result[subject][0]['Sources'][0]['Name']).to eq('aptly-snapshot-123')
+        end
+      end
+    end
+
+    describe 'publish_show' do
+      it 'shows published objects' do
+        result = bolt_task_run("aptly::#{subject}", distribution: 'squeeze', prefix: 'aptly')
+        aggregate_failures subject do
+          expect(result[subject]['Prefix']).to eq('aptly')
+          expect(result[subject]['Distribution']).to eq('squeeze')
+          expect(result[subject]['Sources'][0]['Name']).to eq('aptly-snapshot-123')
         end
       end
     end
@@ -132,6 +160,13 @@ describe 'aptly bolt tasks' do
       it 'lists repo' do
         result = bolt_task_run("aptly::#{subject}")
         expect(result[subject][0]['Name']).to eq('example-repo')
+      end
+    end
+
+    describe 'repo_show' do
+      it 'shows repo' do
+        result = bolt_task_run("aptly::#{subject}", name: 'example-repo')
+        expect(result[subject]['Name']).to eq('example-repo')
       end
     end
 

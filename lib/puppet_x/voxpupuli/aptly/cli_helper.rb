@@ -17,6 +17,7 @@ module PuppetX::Aptly
       attr_accessor :aptly
     end
 
+    # Mirror
     def self.mirror_create(name, url, distribution, options = {})
       cmd = [@aptly, 'mirror', 'create']
       cmd += parse_common_options(options)
@@ -54,6 +55,10 @@ module PuppetX::Aptly
       something_list('mirror', options)
     end
 
+    def self.mirror_show(name, options = {})
+      something_show('mirror', name, options)
+    end
+
     def self.mirror_drop(name, options = {})
       something_drop('mirror', name, options)
     end
@@ -74,6 +79,7 @@ module PuppetX::Aptly
       execute(cmd)
     end
 
+    # Repo
     def self.repo_create(name, options = {})
       cmd = [@aptly, 'repo', 'create']
       cmd += parse_common_options(options)
@@ -112,10 +118,15 @@ module PuppetX::Aptly
       something_list('repo', options)
     end
 
+    def self.repo_show(name, options = {})
+      something_show('repo', name, options)
+    end
+
     def self.repo_drop(name, options = {})
       something_drop('repo', name, options)
     end
 
+    # Snapshot
     def self.snapshot_create(name, from, options = {})
       cmd = [@aptly, 'snapshot', 'create']
       cmd += parse_common_options(options)
@@ -143,10 +154,15 @@ module PuppetX::Aptly
       something_list('snapshot', options)
     end
 
+    def self.snapshot_show(name, options = {})
+      something_show('snapshot', name, options)
+    end
+
     def self.snapshot_drop(name, options = {})
       something_drop('snapshot', name, options)
     end
 
+    # Publish
     def self.publish_snapshot(names, prefix, options = {})
       publish_something('snapshot', names, prefix, options)
     end
@@ -167,13 +183,19 @@ module PuppetX::Aptly
       something_list('publish', options)
     end
 
+    def self.publish_show(distribution, prefix, options = {})
+      cmd = [@aptly, 'publish', 'show', '-json']
+      cmd += parse_common_options(options)
+      cmd << distribution << prefix
+      execute_and_parse(cmd)
+    end
+
     def self.publish_drop(distribution, prefix, options = {})
       cmd = [@aptly, 'publish', 'drop']
       cmd += parse_common_options(options)
       cmd << '-force-drop' if options[:force_drop]
       cmd << '-skip-cleanup' if options[:skip_cleanup]
-      cmd << distribution
-      cmd << prefix
+      cmd << distribution << prefix
       execute(cmd)
     end
 
@@ -237,6 +259,20 @@ module PuppetX::Aptly
       execute(cmd)
     end
 
+    private_class_method def self.something_show(what, name, options)
+      cmd = [@aptly, what, 'show', '-json']
+      cmd += parse_common_options(options)
+      cmd << '-with-packages' if options[:with_packages]
+      cmd << name
+      execute_and_parse(cmd)
+    end
+
+    private_class_method def self.something_list(what, options)
+      cmd = [@aptly, what, 'list', '-json']
+      cmd += parse_common_options(options)
+      execute_and_parse(cmd)
+    end
+
     private_class_method def self.parse_common_options(options)
       args = []
       args << "-architectures=#{Array(options[:architectures]).join(',')}" if options[:architectures]
@@ -248,9 +284,7 @@ module PuppetX::Aptly
       args
     end
 
-    private_class_method def self.something_list(what, options)
-      cmd = [@aptly, what, 'list', '-json']
-      cmd += parse_common_options(options)
+    private_class_method def self.execute_and_parse(cmd)
       out, err, status = Open3.capture3(*cmd)
       return JSON.parse(out) if status.success?
 

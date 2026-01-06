@@ -21,6 +21,19 @@ describe AptlyPublishTask do
     end
   end
 
+  describe 'publish_show' do
+    let(:result_json) { { 'Distribution' => 'bookworm', 'Prefix' => 'current/debian' } }
+    let(:opts) { super().merge(distribution: 'bookworm', prefix: 'debian') }
+
+    it 'shows the published repository' do
+      allow(PuppetX::Aptly::CliHelper).to receive(method_name).with(opts[:distribution], opts[:prefix], opts).and_return(result_json)
+
+      result = task.task(opts)
+      expect(PuppetX::Aptly::CliHelper).to have_received(method_name).once
+      expect(result).to eq({ method_name => result_json })
+    end
+  end
+
   describe 'publish_list' do
     let(:result_json) { [{ 'Distribution' => 'bookworm', 'Prefix' => 'current/debian' }] }
 

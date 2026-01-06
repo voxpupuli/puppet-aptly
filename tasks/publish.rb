@@ -15,6 +15,12 @@ class AptlyPublishTask < AptlyTaskHelper
     PuppetX::Aptly::CliHelper.publish_drop(distribution, prefix, opts)
   end
 
+  def publish_show(opts = {})
+    distribution = opts.delete(:distribution)
+    prefix = opts.delete(:prefix)
+    PuppetX::Aptly::CliHelper.publish_show(distribution, prefix, opts)
+  end
+
   def publish_list(opts = {})
     PuppetX::Aptly::CliHelper.publish_list(opts)
   end

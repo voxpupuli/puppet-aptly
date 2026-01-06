@@ -138,6 +138,18 @@ describe PuppetX::Aptly::CliHelper do
     end
   end
 
+  describe '#mirror_show' do
+    let(:expected_result) { { 'Name' => 'bookworm-main' } }
+    let(:capture3_out) { expected_result.to_json }
+    let(:cmd) { %w[aptly mirror show -json -with-packages bookworm-main] }
+
+    specify do
+      out = cli_helper.mirror_show('bookworm-main', with_packages: true)
+      expect(Open3).to have_received(:capture3).with(*cmd).once
+      expect(out).to eq(expected_result)
+    end
+  end
+
   describe '#mirror_drop' do
     let(:cmd) { %w[aptly mirror drop -force bookworm-main] }
 
@@ -257,6 +269,18 @@ describe PuppetX::Aptly::CliHelper do
     end
   end
 
+  describe '#repo_show' do
+    let(:expected_result) { { 'Name' => 'example-repo' } }
+    let(:capture3_out) { expected_result.to_json }
+    let(:cmd) { %w[aptly repo show -json -with-packages example-repo] }
+
+    specify do
+      out = cli_helper.repo_show('example-repo', with_packages: true)
+      expect(Open3).to have_received(:capture3).with(*cmd).once
+      expect(out).to eq(expected_result)
+    end
+  end
+
   describe '#repo_drop' do
     let(:cmd) { %w[aptly repo drop -force example-repo] }
 
@@ -319,6 +343,18 @@ describe PuppetX::Aptly::CliHelper do
 
     specify do
       out = cli_helper.snapshot_list
+      expect(Open3).to have_received(:capture3).with(*cmd).once
+      expect(out).to eq(expected_result)
+    end
+  end
+
+  describe '#snapshot_show' do
+    let(:expected_result) { { 'Name' => 'example-snapshot-123' } }
+    let(:capture3_out) { expected_result.to_json }
+    let(:cmd) { %w[aptly snapshot show -json -with-packages example-snapshot-123] }
+
+    specify do
+      out = cli_helper.snapshot_show('example-snapshot-123', with_packages: true)
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
@@ -544,6 +580,18 @@ describe PuppetX::Aptly::CliHelper do
 
     specify do
       out = cli_helper.publish_list
+      expect(Open3).to have_received(:capture3).with(*cmd).once
+      expect(out).to eq(expected_result)
+    end
+  end
+
+  describe '#publish_show' do
+    let(:expected_result) { { 'Distribution' => 'bookworm', 'Prefix' => 'current/debian' } }
+    let(:capture3_out) { expected_result.to_json }
+    let(:cmd) { %w[aptly publish show -json bookworm current/debian] }
+
+    specify do
+      out = cli_helper.publish_show('bookworm', 'current/debian')
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end

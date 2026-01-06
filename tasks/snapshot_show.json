@@ -1,0 +1,30 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Show details about snapshot",
+  "input_method": "stdin",
+  "implementations": [
+    {
+      "name": "snapshot.rb"
+    }
+  ],
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "aptly/lib/aptly_task_helper.rb",
+    "aptly/lib/puppet_x/voxpupuli/aptly/cli_helper.rb"
+  ],
+  "parameters": {
+    "name": {
+      "description": "Snapshot name",
+      "type": "String[1]"
+    },
+    "with_packages": {
+      "description": "Show detailed list of packages and versions stored in the snapshot",
+      "type": "Optional[Boolean]"
+    },
+    "config": {
+      "description": "Location of configuration file",
+      "type": "Optional[Stdlib::Absolutepath]"
+    }
+  }
+}
