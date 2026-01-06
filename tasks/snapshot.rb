@@ -20,6 +20,11 @@ class AptlySnapshotTask < AptlyTaskHelper
     PuppetX::Aptly::CliHelper.snapshot_drop(name, opts)
   end
 
+  def snapshot_show(opts = {})
+    name = opts.delete(:name)
+    PuppetX::Aptly::CliHelper.snapshot_show(name, opts)
+  end
+
   def snapshot_list(opts = {})
     PuppetX::Aptly::CliHelper.snapshot_list(opts)
   end

@@ -36,10 +36,12 @@ to schedule these actions frequently in Puppet.
 * [`mirror_create`](#mirror_create): Create new mirror
 * [`mirror_drop`](#mirror_drop): Delete the mirror
 * [`mirror_list`](#mirror_list): List mirrors
+* [`mirror_show`](#mirror_show): Show details about mirror
 * [`mirror_update`](#mirror_update): Update the mirror
 * [`publish_drop`](#publish_drop): Stop publishing repository
 * [`publish_list`](#publish_list): List published repositories
 * [`publish_repo`](#publish_repo): Publish the snapshot(s)
+* [`publish_show`](#publish_show): Shows details of published repository
 * [`publish_snapshot`](#publish_snapshot): Publish the snapshot(s)
 * [`publish_switch`](#publish_switch): Update published repository by switching to new snapshot
 * [`publish_update`](#publish_update): Update published local repository
@@ -48,9 +50,11 @@ to schedule these actions frequently in Puppet.
 * [`repo_drop`](#repo_drop): Delete the repo
 * [`repo_list`](#repo_list): List repos
 * [`repo_remove`](#repo_remove): Remove package from local repository
+* [`repo_show`](#repo_show): Show details about local repository
 * [`snapshot_create`](#snapshot_create): Create new snapshot
 * [`snapshot_drop`](#snapshot_drop): Delete the snapshot
 * [`snapshot_list`](#snapshot_list): List snapshots
+* [`snapshot_show`](#snapshot_show): Show details about snapshot
 
 ## Classes
 
@@ -677,6 +681,32 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
 
+### <a name="mirror_show"></a>`mirror_show`
+
+Show details about mirror
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `name`
+
+Data type: `String[1]`
+
+Mirror name
+
+##### `with_packages`
+
+Data type: `Optional[Boolean]`
+
+Show detailed list of packages and versions stored in the mirror
+
+##### `config`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Location of configuration file
+
 ### <a name="mirror_update"></a>`mirror_update`
 
 Update the mirror
@@ -984,6 +1014,32 @@ When processing dependencies, follow from binary to Source packages
 Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
+
+### <a name="publish_show"></a>`publish_show`
+
+Shows details of published repository
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `distribution`
+
+Data type: `String[1]`
+
+Distribution name of published repository
+
+##### `prefix`
+
+Data type: `Optional[String[1]]`
+
+Publishing prefix (may include endpoint)
+
+##### `config`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Location of configuration file
 
 ### <a name="publish_snapshot"></a>`publish_snapshot`
 
@@ -1577,6 +1633,32 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
 
+### <a name="repo_show"></a>`repo_show`
+
+Show details about local repository
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `name`
+
+Data type: `String[1]`
+
+Repository name
+
+##### `with_packages`
+
+Data type: `Optional[Boolean]`
+
+Show detailed list of packages and versions stored in the repository
+
+##### `config`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Location of configuration file
+
 ### <a name="snapshot_create"></a>`snapshot_create`
 
 Create new snapshot
@@ -1678,6 +1760,32 @@ List snapshots
 **Supports noop?** false
 
 #### Parameters
+
+##### `config`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Location of configuration file
+
+### <a name="snapshot_show"></a>`snapshot_show`
+
+Show details about snapshot
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `name`
+
+Data type: `String[1]`
+
+Snapshot name
+
+##### `with_packages`
+
+Data type: `Optional[Boolean]`
+
+Show detailed list of packages and versions stored in the snapshot
 
 ##### `config`
 

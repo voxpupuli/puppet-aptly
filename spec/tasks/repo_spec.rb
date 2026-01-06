@@ -92,6 +92,19 @@ describe AptlyRepoTask do
     end
   end
 
+  describe 'repo_show' do
+    let(:result_json) { { 'Name' => 'example-repo' } }
+    let(:opts) { super().merge(name: 'test') }
+
+    it 'shows the repo' do
+      allow(PuppetX::Aptly::CliHelper).to receive(method_name).with(opts[:name], opts).and_return(result_json)
+
+      result = task.task(opts)
+      expect(PuppetX::Aptly::CliHelper).to have_received(method_name).once
+      expect(result).to eq({ method_name => result_json })
+    end
+  end
+
   describe 'repo_list' do
     let(:result_json) { [{ 'Name' => 'example-repo' }] }
 

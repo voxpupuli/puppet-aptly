@@ -35,6 +35,11 @@ class AptlyRepoTask < AptlyTaskHelper
     PuppetX::Aptly::CliHelper.repo_drop(name, opts)
   end
 
+  def repo_show(opts = {})
+    name = opts.delete(:name)
+    PuppetX::Aptly::CliHelper.repo_show(name, opts)
+  end
+
   def repo_list(opts = {})
     PuppetX::Aptly::CliHelper.repo_list(opts)
   end

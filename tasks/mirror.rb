@@ -21,6 +21,11 @@ class AptlyMirrorTask < AptlyTaskHelper
     PuppetX::Aptly::CliHelper.mirror_drop(name, opts)
   end
 
+  def mirror_show(opts = {})
+    name = opts.delete(:name)
+    PuppetX::Aptly::CliHelper.mirror_show(name, opts)
+  end
+
   def mirror_list(opts = {})
     PuppetX::Aptly::CliHelper.mirror_list(opts)
   end
