@@ -16,8 +16,14 @@ class aptly::api (
   Enum['none','log'] $log           = 'none',
   Boolean $enable_cli_and_http      = false,
 ) {
+  $description = 'Aptly-api'
+  $exec_start  = $enable_cli_and_http ? {
+    true    => "/usr/bin/aptly api serve -listen=${listen} -no-lock",
+    default => "/usr/bin/aptly api serve -listen=${listen}",
+  }
+
   systemd::unit_file { 'aptly-api.service':
-    content => template('aptly/etc/aptly-api.systemd.erb'),
+    content => template('aptly/etc/aptly.service.systemd.erb'),
     active  => $ensure == 'running',
     enable  => true,
   }

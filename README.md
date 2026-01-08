@@ -56,6 +56,16 @@ Create an aptly repository to host local packages:
 aptly::repo { 'mylocalrepo': }
 ```
 
+Run the built-in static HTTP server (equivalent to `aptly serve`):
+
+```puppet
+include aptly
+
+class { 'aptly::serve':
+  listen => '0.0.0.0:8080',
+}
+```
+
 See the class and defined type documentation for advanced usage.
 
 ## License
