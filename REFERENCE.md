@@ -8,6 +8,7 @@
 
 * [`aptly`](#aptly): aptly is a swiss army knife for Debian repository management
 * [`aptly::api`](#aptly--api): Install and configure Aptly's API Service
+* [`aptly::serve`](#aptly--serve): Install and configure Aptly's static file server (aptly serve)
 
 ### Defined types
 
@@ -214,6 +215,60 @@ Data type: `Boolean`
 Enable concurrent use of command line (CLI) and HTTP APIs with the same Aptly root.
 
 Default value: `false`
+
+### <a name="aptly--serve"></a>`aptly::serve`
+
+Install and configure Aptly's static file server (aptly serve)
+
+#### Parameters
+
+The following parameters are available in the `aptly::serve` class:
+
+* [`ensure`](#-aptly--serve--ensure)
+* [`user`](#-aptly--serve--user)
+* [`group`](#-aptly--serve--group)
+* [`listen`](#-aptly--serve--listen)
+* [`config_file`](#-aptly--serve--config_file)
+
+##### <a name="-aptly--serve--ensure"></a>`ensure`
+
+Data type: `Enum['stopped','running']`
+
+Ensure to pass on to service type
+
+Default value: `running`
+
+##### <a name="-aptly--serve--user"></a>`user`
+
+Data type: `String[1]`
+
+User to run the service as.
+
+Default value: `'root'`
+
+##### <a name="-aptly--serve--group"></a>`group`
+
+Data type: `String[1]`
+
+Group to run the service as.
+
+Default value: `'root'`
+
+##### <a name="-aptly--serve--listen"></a>`listen`
+
+Data type: `Pattern['^([0-9.]*:[0-9]+$|unix:)']`
+
+What IP/port to listen on for HTTP requests.
+
+Default value: `':8080'`
+
+##### <a name="-aptly--serve--config_file"></a>`config_file`
+
+Data type: `Stdlib::Absolutepath`
+
+Absolute path to the Aptly configuration file.
+
+Default value: `'/etc/aptly.conf'`
 
 ## Defined types
 
