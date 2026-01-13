@@ -56,6 +56,10 @@ to schedule these actions frequently in Puppet.
 * [`snapshot_list`](#snapshot_list): List snapshots
 * [`snapshot_show`](#snapshot_show): Show details about snapshot
 
+### Plans
+
+* [`aptly::cleanup_snapshots`](#aptly--cleanup_snapshots): Cleanup unreferenced aptly snapshots
+
 ## Classes
 
 ### <a name="aptly"></a>`aptly`
@@ -1792,4 +1796,40 @@ Show detailed list of packages and versions stored in the snapshot
 Data type: `Optional[Stdlib::Absolutepath]`
 
 Location of configuration file
+
+## Plans
+
+### <a name="aptly--cleanup_snapshots"></a>`aptly::cleanup_snapshots`
+
+NOTE: This plan should be run against a server, that has aptly installed and executable.
+
+#### Parameters
+
+The following parameters are available in the `aptly::cleanup_snapshots` plan:
+
+* [`targets`](#-aptly--cleanup_snapshots--targets)
+* [`filter`](#-aptly--cleanup_snapshots--filter)
+* [`noop`](#-aptly--cleanup_snapshots--noop)
+
+##### <a name="-aptly--cleanup_snapshots--targets"></a>`targets`
+
+Data type: `TargetSpec`
+
+Target server to run `aptly` command on
+
+##### <a name="-aptly--cleanup_snapshots--filter"></a>`filter`
+
+Data type: `Optional[String[1]]`
+
+Only delete unreferenced snapshots matching this regexp pattern
+
+Default value: `undef`
+
+##### <a name="-aptly--cleanup_snapshots--noop"></a>`noop`
+
+Data type: `Boolean`
+
+Whether to really delete snapshots or just report them
+
+Default value: `false`
 

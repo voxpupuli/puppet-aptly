@@ -4,19 +4,12 @@ require 'spec_helper_acceptance'
 require 'json'
 
 describe 'aptly bolt tasks' do
-  def bolt_task_run(name, options = {})
-    optkv = options.map { |k, v| "'#{k}=#{v}'" }
-    result = shell("bolt task run -t localhost --format=json '#{name}' #{optkv.join(' ')}")
-    JSON.parse(result.stdout.chomp)['items'][0]['value']
-  end
-
   let(:current_arch) { shell('/opt/puppetlabs/bin/facter os.architecture').stdout.chomp }
   let(:keyring) { '/root/keyring_for_tasks.gpg' }
 
-  describe 'apply puppet' do
-    specify do
-      apply_manifest_on(default, 'include apt; include aptly')
-    end
+  # Ensure aptly is installed
+  before(:all) do
+    apply_manifest_on(default, 'include apt; include aptly')
   end
 
   context 'with mirror' do
@@ -114,6 +107,37 @@ describe 'aptly bolt tasks' do
           expect(result[subject]['Prefix']).to eq('aptly')
           expect(result[subject]['Distribution']).to eq('squeeze')
           expect(result[subject]['Sources'][0]['Name']).to eq('aptly-snapshot-123')
+        end
+      end
+    end
+
+    # Testing the plan here to minimize the test suite run time
+    describe 'cleanup_snapshots plan' do
+      let(:snapshot_list) { command('aptly snapshot list -raw').stdout.split(%r{\R}) }
+
+      before(:all) do
+        on(default, 'aptly snapshot create aptly-snapshot-234 from mirror aptly')
+      end
+
+      context 'with noop => true' do
+        it 'keeps aptly-snapshot-234' do
+          plan_result = bolt_plan_run('aptly::cleanup_snapshots', targets: 'localhost', noop: true)
+          res_value = plan_result.first['value']
+          expect(res_value['snapshot_drop']).to be(true)
+          expect(res_value['noop']).to be(true)
+          expect(snapshot_list).to include('aptly-snapshot-123')
+          expect(snapshot_list).to include('aptly-snapshot-234')
+        end
+      end
+
+      context 'with noop unset (false)' do
+        it 'drops aptly-snapshot-234' do
+          plan_result = bolt_plan_run('aptly::cleanup_snapshots', targets: 'localhost')
+          res_value = plan_result.first['value']
+          expect(res_value['snapshot_drop']).to be(true)
+          expect(res_value['noop']).to be_nil
+          expect(snapshot_list).to include('aptly-snapshot-123')
+          expect(snapshot_list).not_to include('aptly-snapshot-234')
         end
       end
     end
