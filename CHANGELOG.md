@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-aptly/tree/v4.0.0) (2026-01-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v3.1.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#61](https://github.com/voxpupuli/puppet-aptly/pull/61) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Implement `*_show` tasks [\#75](https://github.com/voxpupuli/puppet-aptly/issues/75)
+- Add openbolt to test gem group [\#79](https://github.com/voxpupuli/puppet-aptly/pull/79) ([jay7x](https://github.com/jay7x))
+- Add aptly::cleanup\_snapshots plan [\#78](https://github.com/voxpupuli/puppet-aptly/pull/78) ([jay7x](https://github.com/jay7x))
+- implement `*_show` tasks [\#76](https://github.com/voxpupuli/puppet-aptly/pull/76) ([jay7x](https://github.com/jay7x))
+- Add `aptly::serve` [\#73](https://github.com/voxpupuli/puppet-aptly/pull/73) ([bwitt](https://github.com/bwitt))
+
+**Fixed bugs:**
+
+- Fix puppet\_x LoadError when running Bolt Tasks [\#82](https://github.com/voxpupuli/puppet-aptly/pull/82) ([sboyd-m](https://github.com/sboyd-m))
+
+**Closed issues:**
+
+- Support for aptly serving service configuration [\#45](https://github.com/voxpupuli/puppet-aptly/issues/45)
+
 ## [v3.1.0](https://github.com/voxpupuli/puppet-aptly/tree/v3.1.0) (2025-11-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v3.0.0...v3.1.0)
