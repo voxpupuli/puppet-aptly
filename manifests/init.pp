@@ -8,6 +8,7 @@
 # @param repo Whether to configure an apt::source for `repo.aptly.info`. You might want to disable this when you've mirrored that yourself.
 # @param key_server Key server to use when `$repo` is true.
 # @param user The user to use when performing an aptly command
+# @param config_group The the group ownership of the configuration file. Defaults to $user name.
 # @param aptly_repos Hash of aptly repos which is passed to aptly::repo
 # @param aptly_mirrors Hash of aptly mirrors which is passed to aptly::mirror
 #
@@ -19,6 +20,7 @@ class aptly (
   Boolean $repo                     = true,
   Stdlib::Fqdn $key_server          = 'keyserver.ubuntu.com',
   String $user                      = 'root',
+  String[1] $config_group           = $user,
   Hash $aptly_repos                 = {},
   Hash $aptly_mirrors               = {},
 ) {
@@ -45,8 +47,12 @@ class aptly (
   }
 
   file { $config_file:
-    ensure  => file,
-    content => $config_file_contents,
+    ensure    => file,
+    content   => $config_file_contents,
+    owner     => $user,
+    group     => $config_group,
+    mode      => '0440',
+    show_diff => false,
   }
 
   $aptly_cmd = "/usr/bin/aptly -config ${config_file}"
