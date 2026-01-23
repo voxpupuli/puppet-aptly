@@ -78,6 +78,9 @@ The following parameters are available in the `aptly` class:
 * [`repo`](#-aptly--repo)
 * [`key_server`](#-aptly--key_server)
 * [`user`](#-aptly--user)
+* [`config_group`](#-aptly--config_group)
+* [`config_owner`](#-aptly--config_owner)
+* [`config_mode`](#-aptly--config_mode)
 * [`aptly_repos`](#-aptly--aptly_repos)
 * [`aptly_mirrors`](#-aptly--aptly_mirrors)
 
@@ -136,6 +139,30 @@ Data type: `String`
 The user to use when performing an aptly command
 
 Default value: `'root'`
+
+##### <a name="-aptly--config_group"></a>`config_group`
+
+Data type: `String[1]`
+
+The the group ownership of the configuration file. Defaults to $user name.
+
+Default value: `$user`
+
+##### <a name="-aptly--config_owner"></a>`config_owner`
+
+Data type: `String[1]`
+
+The the user ownership of the configuration file. Defaults to $user name.
+
+Default value: `$user`
+
+##### <a name="-aptly--config_mode"></a>`config_mode`
+
+Data type: `String[1]`
+
+The UNIX file permission for the configuration file. Defaults to '0440'
+
+Default value: `'0440'`
 
 ##### <a name="-aptly--aptly_repos"></a>`aptly_repos`
 
