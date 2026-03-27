@@ -11,18 +11,18 @@ describe 'aptly::api' do
         it { is_expected.to contain_systemd__unit_file('aptly-api.service') }
 
         it do
-          is_expected.to contain_file('/etc/systemd/system/aptly-api.service').
-            without_content(%r{^\s*author }).
-            with_content(%r{^User=root$}).
-            with_content(%r{^Group=root$}).
-            with_content(%r{^ExecStart=/usr/bin/aptly api serve -listen=:8080$}).
-            that_notifies('Service[aptly-api.service]')
+          is_expected.to contain_file('/etc/systemd/system/aptly-api.service')
+            .without_content(%r{^\s*author })
+            .with_content(%r{^User=root$})
+            .with_content(%r{^Group=root$})
+            .with_content(%r{^ExecStart=/usr/bin/aptly api serve -listen=:8080$})
+            .that_notifies('Service[aptly-api.service]')
         end
 
         it do
-          is_expected.to contain_service('aptly-api.service').
-            with_ensure(true).
-            with_enable(true)
+          is_expected.to contain_service('aptly-api.service')
+            .with_ensure(true)
+            .with_enable(true)
         end
       end
 

@@ -12,7 +12,7 @@ class AptlyTaskHelper < TaskHelper
   end
 
   def initialize
-    super()
+    super
     @category = category
     @supported_methods = self.class.instance_methods(false).filter { |x| x.to_s.start_with? @category }.freeze
     @module_prefix = "#{NAMESPACE}::"
@@ -31,7 +31,7 @@ class AptlyTaskHelper < TaskHelper
         raise TaskHelper::Error.new(
           'Task with this name is not found here',
           "#{NAMESPACE}::#{@category}/task-not-found",
-          'task_name' => task_name
+          'task_name' => task_name,
         )
       end
     rescue PuppetX::Aptly::Error => e

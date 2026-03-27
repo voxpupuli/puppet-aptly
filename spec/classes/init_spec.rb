@@ -55,8 +55,8 @@ describe 'aptly' do
             {
               config: {
                 'rootDir' => '/srv/aptly',
-                'architectures' => %w[i386 amd64]
-              }
+                'architectures' => %w[i386 amd64],
+              },
             }
           end
 

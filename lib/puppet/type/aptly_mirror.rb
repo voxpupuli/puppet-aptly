@@ -66,5 +66,5 @@ Puppet::ResourceApi.register_type(
       desc: 'Download .udeb packages (Debian installer support)',
       type: 'Optional[Boolean]',
     },
-  }
+  },
 )

@@ -15,7 +15,7 @@ describe AptlyMirrorTask do
         name: 'test',
         url: 'https://deb.debian.org/debian/',
         distribution: 'bookworm',
-        architectures: %w[amd64 arm64]
+        architectures: %w[amd64 arm64],
       )
     end
 

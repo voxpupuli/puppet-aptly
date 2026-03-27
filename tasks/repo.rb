@@ -17,7 +17,7 @@ class AptlyRepoTask < AptlyTaskHelper
     if (package && directory) || !(package || directory)
       raise TaskHelper::Error.new(
         'One of package or directory must be defined',
-        'aptly/repo_add-error'
+        'aptly/repo_add-error',
       )
     end
 

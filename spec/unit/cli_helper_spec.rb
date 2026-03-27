@@ -66,7 +66,7 @@ describe PuppetX::Aptly::CliHelper do
             with_installer: true,
             with_sources: true,
             with_udebs: true,
-          }
+          },
         ]
       end
       let(:cmd) do
@@ -106,7 +106,7 @@ describe PuppetX::Aptly::CliHelper do
           keyring: ['/home/aptly/example_keyring1.gpg', '/home/aptly/example_keyring2.gpg'],
           max_tries: 5,
           skip_existing_packages: true,
-        }
+        },
       ]
     end
     let(:cmd) do
@@ -177,7 +177,7 @@ describe PuppetX::Aptly::CliHelper do
           with_installer: true,
           with_sources: true,
           with_udebs: true,
-        }
+        },
       ]
     end
     let(:cmd) do
@@ -402,7 +402,7 @@ describe PuppetX::Aptly::CliHelper do
           skip_contents: true,
           skip_signing: true,
           suite: 'stable-security',
-        }
+        },
       ]
     end
     let(:cmd) do
@@ -456,7 +456,7 @@ describe PuppetX::Aptly::CliHelper do
           skip_contents: true,
           skip_signing: true,
           suite: 'bookworm',
-        }
+        },
       ]
     end
     let(:cmd) do
@@ -506,7 +506,7 @@ describe PuppetX::Aptly::CliHelper do
           skip_bz2: true,
           skip_contents: true,
           skip_signing: true,
-        }
+        },
       ]
     end
     let(:cmd) do
@@ -552,7 +552,7 @@ describe PuppetX::Aptly::CliHelper do
           skip_bz2: true,
           skip_contents: true,
           skip_signing: true,
-        }
+        },
       ]
     end
     let(:cmd) do

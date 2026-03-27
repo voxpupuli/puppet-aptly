@@ -15,7 +15,7 @@ describe 'aptly::repo' do
             command: %r{aptly -config /etc/aptly.conf repo create *example},
             unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
             user: 'root',
-            require: ['Package[aptly]', 'File[/etc/aptly.conf]']
+            require: ['Package[aptly]', 'File[/etc/aptly.conf]'],
           )
         end
       end
@@ -28,7 +28,7 @@ describe 'aptly::repo' do
             command: %r{aptly -config /etc/aptly.conf repo create *-component="third-party" *example},
             unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
             user: 'root',
-            require: ['Package[aptly]', 'File[/etc/aptly.conf]']
+            require: ['Package[aptly]', 'File[/etc/aptly.conf]'],
           )
         end
 
@@ -48,7 +48,7 @@ describe 'aptly::repo' do
               command: %r{aptly -config /etc/aptly.conf repo create *-component="third-party" *example},
               unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
               user: 'custom_user',
-              require: ['Package[aptly]', 'File[/etc/aptly.conf]']
+              require: ['Package[aptly]', 'File[/etc/aptly.conf]'],
             )
           end
         end
@@ -63,7 +63,7 @@ describe 'aptly::repo' do
               command: %r{aptly -config /etc/aptly.conf repo create *-architectures="i386,amd64" *example},
               unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
               user: 'root',
-              require: ['Package[aptly]', 'File[/etc/aptly.conf]']
+              require: ['Package[aptly]', 'File[/etc/aptly.conf]'],
             )
           end
         end
@@ -83,7 +83,7 @@ describe 'aptly::repo' do
             command: %r{aptly -config /etc/aptly.conf repo create *-comment="example comment" *example},
             unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
             user: 'root',
-            require: ['Package[aptly]', 'File[/etc/aptly.conf]']
+            require: ['Package[aptly]', 'File[/etc/aptly.conf]'],
           )
         end
       end
@@ -96,7 +96,7 @@ describe 'aptly::repo' do
             command: %r{aptly -config /etc/aptly.conf repo create *-distribution="example_distribution" *example},
             unless: %r{aptly -config /etc/aptly.conf repo show example >/dev/null},
             user: 'root',
-            require: ['Package[aptly]', 'File[/etc/aptly.conf]']
+            require: ['Package[aptly]', 'File[/etc/aptly.conf]'],
           )
         end
       end

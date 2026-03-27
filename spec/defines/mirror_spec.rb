@@ -15,9 +15,9 @@ describe 'aptly::mirror' do
             location: 'http://repo.example.com',
             key: {
               id: 'ABC123',
-              server: 'keyserver.ubuntu.com'
+              server: 'keyserver.ubuntu.com',
             },
-            release: 'precise'
+            release: 'precise',
           }
         end
 
@@ -25,7 +25,7 @@ describe 'aptly::mirror' do
           is_expected.to contain_exec('aptly_mirror_gpg-example').with(
             command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123'$},
             unless: %r{^echo 'ABC123' |},
-            user: 'root'
+            user: 'root',
           )
         end
 
@@ -37,8 +37,8 @@ describe 'aptly::mirror' do
             require: [
               'Package[aptly]',
               'File[/etc/aptly.conf]',
-              'Exec[aptly_mirror_gpg-example]'
-            ]
+              'Exec[aptly_mirror_gpg-example]',
+            ],
           )
         end
 
@@ -48,9 +48,9 @@ describe 'aptly::mirror' do
               location: 'http://lucid.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
-              release: 'precise'
+              release: 'precise',
             }
           end
 
@@ -58,7 +58,7 @@ describe 'aptly::mirror' do
             is_expected.to contain_exec('aptly_mirror_gpg-example').with(
               command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123'$},
               unless: %r{^echo 'ABC123' |},
-              user: 'root'
+              user: 'root',
             )
           end
 
@@ -70,8 +70,8 @@ describe 'aptly::mirror' do
               require: [
                 'Package[aptly]',
                 'File[/etc/aptly.conf]',
-                'Exec[aptly_mirror_gpg-example]'
-              ]
+                'Exec[aptly_mirror_gpg-example]',
+              ],
             )
           end
         end
@@ -92,9 +92,9 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
-              release: 'precise'
+              release: 'precise',
             }
           end
 
@@ -102,7 +102,7 @@ describe 'aptly::mirror' do
             is_expected.to contain_exec('aptly_mirror_gpg-example').with(
               command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123'$},
               unless: %r{^echo 'ABC123' |},
-              user: 'custom_user'
+              user: 'custom_user',
             )
           end
 
@@ -114,8 +114,8 @@ describe 'aptly::mirror' do
               require: [
                 'Package[aptly]',
                 'File[/etc/aptly.conf]',
-                'Exec[aptly_mirror_gpg-example]'
-              ]
+                'Exec[aptly_mirror_gpg-example]',
+              ],
             )
           end
         end
@@ -128,8 +128,8 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
-              }
+                server: 'keyserver.ubuntu.com',
+              },
             }
           end
 
@@ -137,7 +137,7 @@ describe 'aptly::mirror' do
             is_expected.to contain_exec('aptly_mirror_gpg-example').with(
               command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123'$},
               unless: %r{^echo 'ABC123' |},
-              user: 'root'
+              user: 'root',
             )
           end
         end
@@ -150,8 +150,8 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
-              }
+                server: 'keyserver.ubuntu.com',
+              },
             }
           end
 
@@ -164,9 +164,9 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
-              environment: ['FOO=bar']
+              environment: ['FOO=bar'],
             }
           end
 
@@ -181,15 +181,15 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
-              }
+                server: 'keyserver.ubuntu.com',
+              },
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_gpg-example').with(
               command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123'$},
-              unless: %r{^echo 'ABC123' |}
+              unless: %r{^echo 'ABC123' |},
             )
           end
         end
@@ -200,15 +200,15 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: %w[ABC123],
-                server: 'keyserver.ubuntu.com'
-              }
+                server: 'keyserver.ubuntu.com',
+              },
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_gpg-example').with(
               command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123'$},
-              unless: %r{^echo 'ABC123' |}
+              unless: %r{^echo 'ABC123' |},
             )
           end
         end
@@ -219,15 +219,15 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: %w[ABC123 DEF456 GHI789],
-                server: 'keyserver.ubuntu.com'
-              }
+                server: 'keyserver.ubuntu.com',
+              },
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_gpg-example').with(
               command: %r{ --keyserver 'keyserver.ubuntu.com' --recv-keys 'ABC123' 'DEF456' 'GHI789'$},
-              unless: %r{^echo 'ABC123' 'DEF456' 'GHI789' |}
+              unless: %r{^echo 'ABC123' 'DEF456' 'GHI789' |},
             )
           end
         end
@@ -235,7 +235,7 @@ describe 'aptly::mirror' do
         context 'no key passed' do
           let(:params) do
             {
-              location: 'http://repo.example.com'
+              location: 'http://repo.example.com',
             }
           end
 
@@ -250,16 +250,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               repos: ['main'],
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{aptly -config /etc/aptly.conf mirror create *-with-sources=false -with-udebs=false example http://repo\.example\.com precise main}
+              %r{aptly -config /etc/aptly.conf mirror create *-with-sources=false -with-udebs=false example http://repo\.example\.com precise main},
             )
           end
         end
@@ -270,16 +270,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               repos: %w[main contrib non-free],
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false example http://repo.example.com precise main contrib non-free}
+              %r{aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false example http://repo.example.com precise main contrib non-free},
             )
           end
         end
@@ -292,16 +292,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               architectures: ['amd64'],
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{aptly -config /etc/aptly.conf mirror create -architectures='amd64' -with-sources=false -with-udebs=false example http://repo.example.com precise}
+              %r{aptly -config /etc/aptly.conf mirror create -architectures='amd64' -with-sources=false -with-udebs=false example http://repo.example.com precise},
             )
           end
         end
@@ -312,16 +312,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               architectures: %w[i386 amd64 armhf],
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create -architectures='i386,amd64,armhf' -with-sources=false -with-udebs=false example http://repo.example.com precise}
+              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create -architectures='i386,amd64,armhf' -with-sources=false -with-udebs=false example http://repo.example.com precise},
             )
           end
         end
@@ -334,16 +334,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               with_sources: true,
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{aptly -config /etc/aptly.conf mirror create  -with-sources=true -with-udebs=false example http://repo.example.com precise}
+              %r{aptly -config /etc/aptly.conf mirror create  -with-sources=true -with-udebs=false example http://repo.example.com precise},
             )
           end
         end
@@ -356,16 +356,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               with_udebs: true,
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=true example http://repo.example.com precise}
+              %r{aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=true example http://repo.example.com precise},
             )
           end
         end
@@ -378,16 +378,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               filter_with_deps: true,
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter-with-deps example http://repo.example.com precise}
+              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter-with-deps example http://repo.example.com precise},
             )
           end
         end
@@ -400,16 +400,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               filter: 'this is a string',
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it do
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter="this is a string" example http://repo.example.com precise}
+              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -filter="this is a string" example http://repo.example.com precise},
             )
           end
         end
@@ -422,16 +422,16 @@ describe 'aptly::mirror' do
               location: 'http://repo.example.com',
               key: {
                 id: 'ABC123',
-                server: 'keyserver.ubuntu.com'
+                server: 'keyserver.ubuntu.com',
               },
               force_components: true,
-              release: 'precise'
+              release: 'precise',
             }
           end
 
           it {
             is_expected.to contain_exec('aptly_mirror_create-example').with_command(
-              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -force-components example http://repo.example.com precise}
+              %r{/usr/bin/aptly -config /etc/aptly.conf mirror create  -with-sources=false -with-udebs=false -force-components example http://repo.example.com precise},
             )
           }
         end

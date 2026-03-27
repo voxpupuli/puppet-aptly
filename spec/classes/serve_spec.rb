@@ -11,18 +11,18 @@ describe 'aptly::serve' do
         it { is_expected.to contain_systemd__unit_file('aptly-serve.service') }
 
         it do
-          is_expected.to contain_file('/etc/systemd/system/aptly-serve.service').
-            without_content(%r{^\s*author }).
-            with_content(%r{^User=root$}).
-            with_content(%r{^Group=root$}).
-            with_content(%r{^ExecStart=/usr/bin/aptly serve -listen=:8080 -config=/etc/aptly\.conf$}).
-            that_notifies('Service[aptly-serve.service]')
+          is_expected.to contain_file('/etc/systemd/system/aptly-serve.service')
+            .without_content(%r{^\s*author })
+            .with_content(%r{^User=root$})
+            .with_content(%r{^Group=root$})
+            .with_content(%r{^ExecStart=/usr/bin/aptly serve -listen=:8080 -config=/etc/aptly\.conf$})
+            .that_notifies('Service[aptly-serve.service]')
         end
 
         it do
-          is_expected.to contain_service('aptly-serve.service').
-            with_ensure(true).
-            with_enable(true)
+          is_expected.to contain_service('aptly-serve.service')
+            .with_ensure(true)
+            .with_enable(true)
         end
       end
 
