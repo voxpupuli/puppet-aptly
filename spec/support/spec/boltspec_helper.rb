@@ -4,6 +4,7 @@ require 'bolt_spec/plans'
 
 RSpec.shared_context 'boltspec' do
   include BoltSpec::Plans
+
   before :all do # rubocop:disable RSpec/BeforeAfterAll
     BoltSpec::Plans.init
     execute_no_plan

@@ -15,7 +15,7 @@ describe 'aptly::snapshot' do
             command: %r{aptly -config /etc/aptly.conf snapshot create example empty},
             unless: %r{aptly -config /etc/aptly.conf snapshot show example >/dev/null},
             user: 'root',
-            require: 'Class[Aptly]'
+            require: 'Class[Aptly]',
           )
         end
       end
@@ -35,7 +35,7 @@ describe 'aptly::snapshot' do
               command: %r{aptly -config /etc/aptly.conf snapshot create example from repo example_repo},
               unless: %r{aptly -config /etc/aptly.conf snapshot show example >/dev/null},
               user: 'root',
-              require: 'Class[Aptly]'
+              require: 'Class[Aptly]',
             )
           end
         end
@@ -48,7 +48,7 @@ describe 'aptly::snapshot' do
               command: %r{aptly -config /etc/aptly.conf snapshot create example from mirror example_mirror},
               unless: %r{aptly -config /etc/aptly.conf snapshot show example >/dev/null},
               user: 'root',
-              require: 'Class[Aptly]'
+              require: 'Class[Aptly]',
             )
           end
         end

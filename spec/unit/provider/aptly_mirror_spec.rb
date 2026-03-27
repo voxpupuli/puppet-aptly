@@ -23,10 +23,10 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
         'ArchiveRoot' => 'http://deb.debian.org/debian/',
         'Distribution' => 'bookworm',
         'Components' => [
-          'main'
+          'main',
         ],
         'Architectures' => [
-          'amd64'
+          'amd64',
         ],
         'Filter' => '',
         'FilterWithDeps' => false,
@@ -41,10 +41,10 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
         'ArchiveRoot' => 'http://deb.debian.org/debian/',
         'Distribution' => 'bullseye',
         'Components' => [
-          'main'
+          'main',
         ],
         'Architectures' => [
-          'amd64'
+          'amd64',
         ],
         'Filter' => '',
         'FilterWithDeps' => false,
@@ -139,8 +139,8 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
             name => {
               is: nil,
               should: wanted,
-            }
-          }
+            },
+          },
         )
         expect(context).to have_received(:creating).once
       end
@@ -161,8 +161,8 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
             name => {
               is: current.find { |r| r[:name] == name },
               should: wanted,
-            }
-          }
+            },
+          },
         )
         expect(context).to have_received(:deleting).once
       end
@@ -183,8 +183,8 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
             name => {
               is: current.find { |r| r[:name] == name },
               should: wanted,
-            }
-          }
+            },
+          },
         )
         expect(context).to have_received(:updating).once
       end
@@ -213,9 +213,9 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
     before { allow(context).to receive(:notice).with("Creating mirror '#{name}'") }
 
     it 'creates the resource' do
-      allow(cli_helper).to receive(:mirror_create).
-        with(name, 'https://apt.voxpupuli.org', 'debian12', wanted.reject { |k, _| %i[name url distribution].include?(k) }).
-        and_return(true)
+      allow(cli_helper).to receive(:mirror_create)
+        .with(name, 'https://apt.voxpupuli.org', 'debian12', wanted.reject { |k, _| %i[name url distribution].include?(k) })
+        .and_return(true)
 
       provider.create(context, name, wanted)
       expect(cli_helper).to have_received(:mirror_create).once
@@ -297,9 +297,9 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
       it 'deletes & creates the resource' do
         allow(cli_helper).to receive(:mirror_drop).with(name, force: true).and_return(true) # delete()
         # create()
-        allow(cli_helper).to receive(:mirror_create).
-          with(name, 'http://deb.debian.org/debian/', 'bookworm', wanted.reject { |k, _| %i[name url distribution].include?(k) }).
-          and_return(true)
+        allow(cli_helper).to receive(:mirror_create)
+          .with(name, 'http://deb.debian.org/debian/', 'bookworm', wanted.reject { |k, _| %i[name url distribution].include?(k) })
+          .and_return(true)
 
         provider.update(context, name, wanted)
         expect(cli_helper).to have_received(:mirror_drop).once
