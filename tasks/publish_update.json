@@ -85,6 +85,10 @@
     "dep_follow_suggests": {
       "description": "When processing dependencies, follow Suggests",
       "type": "Optional[Boolean]"
+    },
+    "multi_dist": {
+      "description": "Allow multiple packages with the same filename in different distributions",
+      "type": "Optional[Boolean]"
     }
   }
 }

@@ -1074,6 +1074,12 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
+##### `multi_dist`
+
+Data type: `Optional[Boolean]`
+
+Allow multiple packages with the same filename in different distributions
+
 ### <a name="publish_show"></a>`publish_show`
 
 Shows details of published repository
@@ -1258,6 +1264,12 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
+##### `multi_dist`
+
+Data type: `Optional[Boolean]`
+
+Allow multiple packages with the same filename in different distributions
+
 ### <a name="publish_switch"></a>`publish_switch`
 
 Update published repository by switching to new snapshot
@@ -1386,6 +1398,12 @@ Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
 
+##### `multi_dist`
+
+Data type: `Optional[Boolean]`
+
+Allow multiple packages with the same filename in different distributions
+
 ### <a name="publish_update"></a>`publish_update`
 
 Update published local repository
@@ -1501,6 +1519,12 @@ When processing dependencies, follow from binary to Source packages
 Data type: `Optional[Boolean]`
 
 When processing dependencies, follow Suggests
+
+##### `multi_dist`
+
+Data type: `Optional[Boolean]`
+
+Allow multiple packages with the same filename in different distributions
 
 ### <a name="repo_add"></a>`repo_add`
 

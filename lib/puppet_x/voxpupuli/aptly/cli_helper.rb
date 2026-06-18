@@ -213,6 +213,7 @@ module PuppetX
         cmd << "-gpg-key=#{options[:gpg_key]}" if options[:gpg_key]
         cmd += Array(options[:keyring]).map { |x| "-keyring=#{x}" }
         cmd << "-label=#{options[:label]}" if options[:label]
+        cmd << '-multi-dist' if options[:multi_dist]
         cmd << "-notautomatic=#{options[:not_automatic]}" if options[:not_automatic]
         cmd << "-origin=#{options[:origin]}" if options[:origin]
         cmd << "-passphrase-file=#{options[:passphrase_file]}" if options[:passphrase_file]
@@ -238,6 +239,7 @@ module PuppetX
         cmd << '-force-overwrite' if options[:force_overwrite]
         cmd << "-gpg-key=#{options[:gpg_key]}" if options[:gpg_key]
         cmd += Array(options[:keyring]).map { |x| "-keyring=#{x}" }
+        cmd << '-multi-dist' if options[:multi_dist]
         cmd << "-passphrase-file=#{options[:passphrase_file]}" if options[:passphrase_file]
         cmd << "-secret-keyring=#{options[:secret_keyring]}" if options[:secret_keyring]
         cmd << '-skip-bz2' if options[:skip_bz2]
