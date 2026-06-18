@@ -394,6 +394,7 @@ describe PuppetX::Aptly::CliHelper do
           gpg_key: 'ABCDEFGH',
           keyring: '/home/aptly/keyring.gpg',
           label: 'Debian-Security',
+          multi_dist: true,
           not_automatic: 'no',
           origin: 'Debian',
           passphrase_file: '/home/aptly/passphrase.txt',
@@ -412,7 +413,7 @@ describe PuppetX::Aptly::CliHelper do
         -dep-follow-suggests -acquire-by-hash -batch -butautomaticupgrades=no
         -component=main,contrib,non-free,non-free-firmware
         -distribution=bookworm -force-overwrite -gpg-key=ABCDEFGH
-        -keyring=/home/aptly/keyring.gpg -label=Debian-Security
+        -keyring=/home/aptly/keyring.gpg -label=Debian-Security -multi-dist
         -notautomatic=no -origin=Debian
         -passphrase-file=/home/aptly/passphrase.txt
         -secret-keyring=/home/aptly/secret-keyring.gpg -skip-bz2 -skip-contents
@@ -448,6 +449,7 @@ describe PuppetX::Aptly::CliHelper do
           gpg_key: 'ABCDEFGH',
           keyring: '/home/aptly/keyring.gpg',
           label: 'Example-Repo',
+          multi_dist: true,
           not_automatic: 'no',
           origin: 'example.com',
           passphrase_file: '/home/aptly/passphrase.txt',
@@ -465,8 +467,9 @@ describe PuppetX::Aptly::CliHelper do
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
         -acquire-by-hash -batch -butautomaticupgrades=no -component=main
         -distribution=bookworm -force-overwrite -gpg-key=ABCDEFGH
-        -keyring=/home/aptly/keyring.gpg -label=Example-Repo -notautomatic=no
-        -origin=example.com -passphrase-file=/home/aptly/passphrase.txt
+        -keyring=/home/aptly/keyring.gpg -label=Example-Repo -multi-dist
+        -notautomatic=no -origin=example.com
+        -passphrase-file=/home/aptly/passphrase.txt
         -secret-keyring=/home/aptly/secret-keyring.gpg -skip-bz2 -skip-contents
         -skip-signing -suite=bookworm example-repo current/example-repo
       ]
@@ -501,6 +504,7 @@ describe PuppetX::Aptly::CliHelper do
           force_overwrite: true,
           gpg_key: 'ABCDEFGH',
           keyring: '/home/aptly/keyring.gpg',
+          multi_dist: true,
           passphrase_file: '/home/aptly/passphrase.txt',
           secret_keyring: '/home/aptly/secret-keyring.gpg',
           skip_bz2: true,
@@ -515,7 +519,7 @@ describe PuppetX::Aptly::CliHelper do
         -dep-follow-all-variants -dep-follow-recommends -dep-follow-source
         -dep-follow-suggests -batch
         -component=main,contrib,non-free,non-free-firmware -force-overwrite
-        -gpg-key=ABCDEFGH -keyring=/home/aptly/keyring.gpg
+        -gpg-key=ABCDEFGH -keyring=/home/aptly/keyring.gpg -multi-dist
         -passphrase-file=/home/aptly/passphrase.txt
         -secret-keyring=/home/aptly/secret-keyring.gpg -skip-bz2 -skip-contents
         -skip-signing bookworm current/debian-security
@@ -547,6 +551,7 @@ describe PuppetX::Aptly::CliHelper do
           force_overwrite: true,
           gpg_key: 'ABCDEFGH',
           keyring: '/home/aptly/keyring.gpg',
+          multi_dist: true,
           passphrase_file: '/home/aptly/passphrase.txt',
           secret_keyring: '/home/aptly/secret-keyring.gpg',
           skip_bz2: true,
@@ -560,7 +565,7 @@ describe PuppetX::Aptly::CliHelper do
         aptly publish update -architectures=amd64
         -dep-follow-all-variants -dep-follow-recommends -dep-follow-source
         -dep-follow-suggests -batch -force-overwrite -gpg-key=ABCDEFGH
-        -keyring=/home/aptly/keyring.gpg
+        -keyring=/home/aptly/keyring.gpg -multi-dist
         -passphrase-file=/home/aptly/passphrase.txt
         -secret-keyring=/home/aptly/secret-keyring.gpg -skip-bz2 -skip-contents
         -skip-signing bookworm current/example-repo
