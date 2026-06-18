@@ -66,6 +66,9 @@ class Puppet::Provider::AptlyMirror::AptlyMirror
       with_installer: should[:with_installer],
       with_sources: should[:with_sources],
       with_udebs: should[:with_udebs],
+      # non-aptly options
+      aptly_command: should[:aptly_command],
+      aptly_environment: should[:aptly_environment],
     }
 
     PuppetX::Aptly::CliHelper.mirror_create(name, should[:url], should[:distribution], options) unless noop

@@ -66,5 +66,15 @@ Puppet::ResourceApi.register_type(
       desc: 'Download .udeb packages (Debian installer support)',
       type: 'Optional[Boolean]',
     },
+    aptly_command: {
+      desc: 'Path to aptly binary',
+      type: 'Optional[String[1]]',
+      behaviour: :parameter,
+    },
+    aptly_environment: {
+      desc: 'Environment variables to set when executing aptly binary',
+      type: 'Hash[String[1], ScalarData]',
+      behaviour: :parameter,
+    },
   },
 )

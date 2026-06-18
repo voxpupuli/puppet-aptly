@@ -560,7 +560,21 @@ Download .udeb packages (Debian installer support)
 
 The following parameters are available in the `aptly_mirror` type.
 
+* [`aptly_command`](#-aptly_mirror--aptly_command)
+* [`aptly_environment`](#-aptly_mirror--aptly_environment)
 * [`name`](#-aptly_mirror--name)
+
+##### <a name="-aptly_mirror--aptly_command"></a>`aptly_command`
+
+Data type: `Optional[String[1]]`
+
+Path to aptly binary
+
+##### <a name="-aptly_mirror--aptly_environment"></a>`aptly_environment`
+
+Data type: `Hash[String[1], ScalarData]`
+
+Environment variables to set when executing aptly binary
 
 ##### <a name="-aptly_mirror--name"></a>`name`
 

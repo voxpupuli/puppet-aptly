@@ -207,6 +207,11 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
         with_installer: false,
         with_sources: false,
         with_udebs: false,
+        # non-aptly options
+        aptly_command: 'aptly.sh',
+        aptly_environment: {
+          HTTP_PROXY: 'http://proxy.tld:3128',
+        },
       }
     end
 
@@ -285,6 +290,9 @@ describe Puppet::Provider::AptlyMirror::AptlyMirror do
           with_installer: true,
           with_sources: false,
           with_udebs: true,
+          # non-aptly options
+          aptly_command: nil,
+          aptly_environment: nil,
         }
       end
 
