@@ -59,13 +59,23 @@ class Puppet::Provider::AptlyMirror::AptlyMirror
     options = {
       architectures: should[:architectures],
       component: should[:component],
+      config: should[:config],
+      dep_follow_all_variants: should[:dep_follow_all_variants],
+      dep_follow_recommends: should[:dep_follow_recommends],
+      dep_follow_source: should[:dep_follow_source],
+      dep_follow_suggests: should[:dep_follow_suggests],
       filter: should[:filter],
       filter_with_deps: should[:filter_with_deps],
       force_architectures: should[:force_architectures],
       force_components: should[:force_components],
+      ignore_signatures: should[:ignore_signatures],
+      max_tries: should[:max_tries],
       with_installer: should[:with_installer],
       with_sources: should[:with_sources],
       with_udebs: should[:with_udebs],
+      # non-aptly options
+      aptly_command: should[:aptly_command],
+      aptly_environment: should[:aptly_environment],
     }
 
     PuppetX::Aptly::CliHelper.mirror_create(name, should[:url], should[:distribution], options) unless noop

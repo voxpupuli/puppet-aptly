@@ -38,6 +38,31 @@ Puppet::ResourceApi.register_type(
       desc: 'List of architectures to consider (or all available if not specified)',
       type: 'Optional[Variant[String[1],Array[String[1]]]]',
     },
+    config: {
+      desc: 'Configuration file location',
+      type: 'Optional[Stdlib::Absolutepath]',
+      behaviour: :parameter,
+    },
+    dep_follow_all_variants: {
+      desc: 'When processing dependencies, follow a & b if dependency is a|b',
+      type: 'Optional[Boolean]',
+      behaviour: :parameter,
+    },
+    dep_follow_recommends: {
+      desc: 'When processing dependencies, follow Recommends',
+      type: 'Optional[Boolean]',
+      behaviour: :parameter,
+    },
+    dep_follow_source: {
+      desc: 'When processing dependencies, follow from binary to Source packages',
+      type: 'Optional[Boolean]',
+      behaviour: :parameter,
+    },
+    dep_follow_suggests: {
+      desc: 'When processing dependencies, follow Suggests',
+      type: 'Optional[Boolean]',
+      behaviour: :parameter,
+    },
     filter: {
       desc: 'Package query filter that is applied to packages in the mirror',
       type: 'Optional[String]',
@@ -54,6 +79,16 @@ Puppet::ResourceApi.register_type(
       desc: 'Skip check that requested architectures are listed in Release file',
       type: 'Optional[Boolean]',
     },
+    ignore_signatures: {
+      desc: 'Disable verification of Release file signatures',
+      type: 'Optional[Boolean]',
+      behaviour: :parameter,
+    },
+    max_tries: {
+      desc: 'Max download tries till process fails with download error',
+      type: 'Optional[Integer[0]]',
+      behaviour: :parameter,
+    },
     with_installer: {
       desc: 'Download additional not packaged installer files',
       type: 'Optional[Boolean]',
@@ -65,6 +100,16 @@ Puppet::ResourceApi.register_type(
     with_udebs: {
       desc: 'Download .udeb packages (Debian installer support)',
       type: 'Optional[Boolean]',
+    },
+    aptly_command: {
+      desc: 'Path to aptly binary',
+      type: 'Optional[String[1]]',
+      behaviour: :parameter,
+    },
+    aptly_environment: {
+      desc: 'Environment variables to set when executing aptly binary',
+      type: 'Hash[String[1], ScalarData]',
+      behaviour: :parameter,
     },
   },
 )

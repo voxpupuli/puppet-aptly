@@ -11,15 +11,20 @@ module PuppetX
     end
 
     class CliHelper
-      @aptly = 'aptly'
+      def self.aptly_command(*args)
+        opts = args.shift
+        cmd = opts[:aptly_command] || 'aptly'
+        env = opts[:aptly_environment] || {}
 
-      class << self
-        attr_accessor :aptly
+        result = []
+        result << env if env.any?
+        result << cmd
+        result + args
       end
 
       # Mirror
       def self.mirror_create(name, url, distribution, options = {})
-        cmd = [@aptly, 'mirror', 'create']
+        cmd = aptly_command(options, 'mirror', 'create')
         cmd += parse_common_options(options)
         cmd << "-filter=#{options[:filter]}" if options[:filter]
         cmd << '-filter-with-deps' if options[:filter_with_deps]
@@ -37,7 +42,7 @@ module PuppetX
       end
 
       def self.mirror_update(name, options = {})
-        cmd = [@aptly, 'mirror', 'update']
+        cmd = aptly_command(options, 'mirror', 'update')
         cmd += parse_common_options(options)
         cmd << "-download-limit=#{options[:download_limit]}" if options[:download_limit]
         cmd << "-downloader=#{options[:downloader]}" if options[:downloader]
@@ -64,7 +69,7 @@ module PuppetX
       end
 
       def self.mirror_edit(name, options = {})
-        cmd = [@aptly, 'mirror', 'edit']
+        cmd = aptly_command(options, 'mirror', 'edit')
         cmd += parse_common_options(options)
         cmd << "-archive-url=#{options[:archive_url]}" if options[:archive_url]
         cmd << "-filter=#{options[:filter]}" if options[:filter]
@@ -81,7 +86,7 @@ module PuppetX
 
       # Repo
       def self.repo_create(name, options = {})
-        cmd = [@aptly, 'repo', 'create']
+        cmd = aptly_command(options, 'repo', 'create')
         cmd += parse_common_options(options)
         cmd << "-comment=#{options[:comment]}" if options[:comment]
         cmd << "-component=#{options[:component]}" if options[:component]
@@ -95,7 +100,7 @@ module PuppetX
       end
 
       def self.repo_add(name, package_or_directory, options = {})
-        cmd = [@aptly, 'repo', 'add']
+        cmd = aptly_command(options, 'repo', 'add')
         cmd += parse_common_options(options)
         cmd << '-force-replace' if options[:force_replace]
         cmd << '-remove-files' if options[:remove_files]
@@ -106,7 +111,7 @@ module PuppetX
       end
 
       def self.repo_remove(name, package_query, options = {})
-        cmd = [@aptly, 'repo', 'remove']
+        cmd = aptly_command(options, 'repo', 'remove')
         cmd += parse_common_options(options)
         cmd << name
         cmd += Array(package_query)
@@ -128,7 +133,7 @@ module PuppetX
 
       # Snapshot
       def self.snapshot_create(name, from, options = {})
-        cmd = [@aptly, 'snapshot', 'create']
+        cmd = aptly_command(options, 'snapshot', 'create')
         cmd += parse_common_options(options)
         cmd << name
 
@@ -184,14 +189,14 @@ module PuppetX
       end
 
       def self.publish_show(distribution, prefix, options = {})
-        cmd = [@aptly, 'publish', 'show', '-json']
+        cmd = aptly_command(options, 'publish', 'show', '-json')
         cmd += parse_common_options(options)
         cmd << distribution << prefix
         execute_and_parse(cmd)
       end
 
       def self.publish_drop(distribution, prefix, options = {})
-        cmd = [@aptly, 'publish', 'drop']
+        cmd = aptly_command(options, 'publish', 'drop')
         cmd += parse_common_options(options)
         cmd << '-force-drop' if options[:force_drop]
         cmd << '-skip-cleanup' if options[:skip_cleanup]
@@ -202,7 +207,7 @@ module PuppetX
       # Private methods
 
       private_class_method def self.publish_something(what, names, prefix, options)
-        cmd = [@aptly, 'publish', what]
+        cmd = aptly_command(options, 'publish', what)
         cmd += parse_common_options(options)
         cmd << '-acquire-by-hash' if options[:acquire_by_hash]
         cmd << '-batch' if options[:batch]
@@ -230,7 +235,7 @@ module PuppetX
       end
 
       private_class_method def self.publish_somehow(how, distribution, prefix, snapshots, options)
-        cmd = [@aptly, 'publish', how]
+        cmd = aptly_command(options, 'publish', how)
         cmd += parse_common_options(options)
         cmd << '-batch' if options[:batch]
 
@@ -254,7 +259,7 @@ module PuppetX
       end
 
       private_class_method def self.something_drop(what, name, options)
-        cmd = [@aptly, what, 'drop']
+        cmd = aptly_command(options, what, 'drop')
         cmd += parse_common_options(options)
         cmd << '-force' if options[:force]
         cmd << name
@@ -262,7 +267,7 @@ module PuppetX
       end
 
       private_class_method def self.something_show(what, name, options)
-        cmd = [@aptly, what, 'show', '-json']
+        cmd = aptly_command(options, what, 'show', '-json')
         cmd += parse_common_options(options)
         cmd << '-with-packages' if options[:with_packages]
         cmd << name
@@ -270,7 +275,7 @@ module PuppetX
       end
 
       private_class_method def self.something_list(what, options)
-        cmd = [@aptly, what, 'list', '-json']
+        cmd = aptly_command(options, what, 'list', '-json')
         cmd += parse_common_options(options)
         execute_and_parse(cmd)
       end

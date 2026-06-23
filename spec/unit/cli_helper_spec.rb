@@ -21,6 +21,14 @@ describe PuppetX::Aptly::CliHelper do
   let(:capture3_err) { '' }
   let(:cli_helper) { described_class }
 
+  let(:aptly_environment) { { HTTP_PROXY: 'http://proxy.tld:3128' } }
+  let(:non_aptly_options) do
+    {
+      aptly_command: 'aptly.sh',
+      aptly_environment: aptly_environment,
+    }
+  end
+
   before do
     allow(Open3).to receive(:capture3).with(*cmd).and_return([capture3_out, capture3_err, capture3_result])
   end
@@ -66,12 +74,12 @@ describe PuppetX::Aptly::CliHelper do
             with_installer: true,
             with_sources: true,
             with_udebs: true,
-          },
+          }.merge(non_aptly_options),
         ]
       end
       let(:cmd) do
-        %w[
-          aptly mirror create -architectures=amd64,arm64
+        [aptly_environment] + %w[
+          aptly.sh mirror create -architectures=amd64,arm64
           -config=/home/test/aptly.conf -dep-follow-all-variants
           -dep-follow-recommends -dep-follow-source -dep-follow-suggests
           -filter=foo -filter-with-deps -ignore-signatures
@@ -106,12 +114,12 @@ describe PuppetX::Aptly::CliHelper do
           keyring: ['/home/aptly/example_keyring1.gpg', '/home/aptly/example_keyring2.gpg'],
           max_tries: 5,
           skip_existing_packages: true,
-        },
+        }.merge(non_aptly_options),
       ]
     end
     let(:cmd) do
-      %w[
-        aptly mirror update -architectures=amd64,arm64 -dep-follow-all-variants
+      [aptly_environment] + %w[
+        aptly.sh mirror update -architectures=amd64,arm64 -dep-follow-all-variants
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
         -download-limit=100 -downloader=default -force -ignore-checksums
         -ignore-signatures -keyring=/home/aptly/example_keyring1.gpg
@@ -129,10 +137,10 @@ describe PuppetX::Aptly::CliHelper do
   describe '#mirror_list' do
     let(:expected_result) { [{ 'Name' => 'bookworm-main' }] }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly mirror list -json] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh mirror list -json] }
 
     specify do
-      out = cli_helper.mirror_list
+      out = cli_helper.mirror_list(non_aptly_options)
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
@@ -141,20 +149,20 @@ describe PuppetX::Aptly::CliHelper do
   describe '#mirror_show' do
     let(:expected_result) { { 'Name' => 'bookworm-main' } }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly mirror show -json -with-packages bookworm-main] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh mirror show -json -with-packages bookworm-main] }
 
     specify do
-      out = cli_helper.mirror_show('bookworm-main', with_packages: true)
+      out = cli_helper.mirror_show('bookworm-main', { with_packages: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
   end
 
   describe '#mirror_drop' do
-    let(:cmd) { %w[aptly mirror drop -force bookworm-main] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh mirror drop -force bookworm-main] }
 
     specify do
-      cli_helper.mirror_drop('bookworm-main', force: true)
+      cli_helper.mirror_drop('bookworm-main', { force: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
     end
   end
@@ -177,12 +185,12 @@ describe PuppetX::Aptly::CliHelper do
           with_installer: true,
           with_sources: true,
           with_udebs: true,
-        },
+        }.merge(non_aptly_options),
       ]
     end
     let(:cmd) do
-      %w[
-        aptly mirror edit -architectures=amd64,arm64 -dep-follow-all-variants
+      [aptly_environment] + %w[
+        aptly.sh mirror edit -architectures=amd64,arm64 -dep-follow-all-variants
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
         -archive-url=http://deb.debian.org/debian/
         -filter=foo -filter-with-deps -ignore-signatures
@@ -211,12 +219,12 @@ describe PuppetX::Aptly::CliHelper do
         component: 'main',
         distribution: 'bookworm',
         uploaders_file: '/home/aptly/uploaders.json',
-      }
+      }.merge(non_aptly_options)
     end
     let(:name) { 'example-repo' }
     let(:cmd) do
-      (%w[
-        aptly repo create -architectures=amd64,arm64 -dep-follow-all-variants
+      ([aptly_environment] + %w[
+        aptly.sh repo create -architectures=amd64,arm64 -dep-follow-all-variants
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
       ] + ['-comment=Example Repository'] + %w[
         -component=main -distribution=bookworm
@@ -240,19 +248,19 @@ describe PuppetX::Aptly::CliHelper do
   end
 
   describe '#repo_add' do
-    let(:cmd) { %w[aptly repo add -force-replace -remove-files example-repo foo] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh repo add -force-replace -remove-files example-repo foo] }
 
     specify do
-      cli_helper.repo_add('example-repo', 'foo', force_replace: true, remove_files: true)
+      cli_helper.repo_add('example-repo', 'foo', { force_replace: true, remove_files: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
     end
   end
 
   describe '#repo_remove' do
-    let(:cmd) { %w[aptly repo remove example-repo foo] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh repo remove example-repo foo] }
 
     specify do
-      cli_helper.repo_remove('example-repo', 'foo')
+      cli_helper.repo_remove('example-repo', 'foo', non_aptly_options)
       expect(Open3).to have_received(:capture3).with(*cmd).once
     end
   end
@@ -260,10 +268,10 @@ describe PuppetX::Aptly::CliHelper do
   describe '#repo_list' do
     let(:expected_result) { [{ 'Name' => 'example-repo' }] }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly repo list -json] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh repo list -json] }
 
     specify do
-      out = cli_helper.repo_list
+      out = cli_helper.repo_list(non_aptly_options)
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
@@ -272,20 +280,20 @@ describe PuppetX::Aptly::CliHelper do
   describe '#repo_show' do
     let(:expected_result) { { 'Name' => 'example-repo' } }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly repo show -json -with-packages example-repo] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh repo show -json -with-packages example-repo] }
 
     specify do
-      out = cli_helper.repo_show('example-repo', with_packages: true)
+      out = cli_helper.repo_show('example-repo', { with_packages: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
   end
 
   describe '#repo_drop' do
-    let(:cmd) { %w[aptly repo drop -force example-repo] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh repo drop -force example-repo] }
 
     specify do
-      cli_helper.repo_drop('example-repo', force: true)
+      cli_helper.repo_drop('example-repo', { force: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
     end
   end
@@ -298,12 +306,12 @@ describe PuppetX::Aptly::CliHelper do
         dep_follow_recommends: true,
         dep_follow_source: true,
         dep_follow_suggests: true,
-      }
+      }.merge(non_aptly_options)
     end
     let(:name) { 'example-snapshot-123' }
     let(:cmd) do
-      %w[
-        aptly snapshot create -architectures=amd64,arm64 -dep-follow-all-variants
+      [aptly_environment] + %w[
+        aptly.sh snapshot create -architectures=amd64,arm64 -dep-follow-all-variants
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
       ] + [name]
     end
@@ -339,10 +347,10 @@ describe PuppetX::Aptly::CliHelper do
   describe '#snapshot_list' do
     let(:expected_result) { [{ 'Name' => 'example-snapshot-123' }] }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly snapshot list -json] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh snapshot list -json] }
 
     specify do
-      out = cli_helper.snapshot_list
+      out = cli_helper.snapshot_list(non_aptly_options)
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
@@ -351,20 +359,20 @@ describe PuppetX::Aptly::CliHelper do
   describe '#snapshot_show' do
     let(:expected_result) { { 'Name' => 'example-snapshot-123' } }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly snapshot show -json -with-packages example-snapshot-123] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh snapshot show -json -with-packages example-snapshot-123] }
 
     specify do
-      out = cli_helper.snapshot_show('example-snapshot-123', with_packages: true)
+      out = cli_helper.snapshot_show('example-snapshot-123', { with_packages: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
   end
 
   describe '#snapshot_drop' do
-    let(:cmd) { %w[aptly snapshot drop -force example-snapshot-123] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh snapshot drop -force example-snapshot-123] }
 
     specify do
-      cli_helper.snapshot_drop('example-snapshot-123', force: true)
+      cli_helper.snapshot_drop('example-snapshot-123', { force: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
     end
   end
@@ -403,12 +411,12 @@ describe PuppetX::Aptly::CliHelper do
           skip_contents: true,
           skip_signing: true,
           suite: 'stable-security',
-        },
+        }.merge(non_aptly_options),
       ]
     end
     let(:cmd) do
-      %w[
-        aptly publish snapshot -architectures=amd64,arm64
+      [aptly_environment] + %w[
+        aptly.sh publish snapshot -architectures=amd64,arm64
         -dep-follow-all-variants -dep-follow-recommends -dep-follow-source
         -dep-follow-suggests -acquire-by-hash -batch -butautomaticupgrades=no
         -component=main,contrib,non-free,non-free-firmware
@@ -458,12 +466,12 @@ describe PuppetX::Aptly::CliHelper do
           skip_contents: true,
           skip_signing: true,
           suite: 'bookworm',
-        },
+        }.merge(non_aptly_options),
       ]
     end
     let(:cmd) do
-      %w[
-        aptly publish repo -architectures=amd64 -dep-follow-all-variants
+      [aptly_environment] + %w[
+        aptly.sh publish repo -architectures=amd64 -dep-follow-all-variants
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
         -acquire-by-hash -batch -butautomaticupgrades=no -component=main
         -distribution=bookworm -force-overwrite -gpg-key=ABCDEFGH
@@ -510,12 +518,12 @@ describe PuppetX::Aptly::CliHelper do
           skip_bz2: true,
           skip_contents: true,
           skip_signing: true,
-        },
+        }.merge(non_aptly_options),
       ]
     end
     let(:cmd) do
-      %w[
-        aptly publish switch -architectures=amd64,arm64
+      [aptly_environment] + %w[
+        aptly.sh publish switch -architectures=amd64,arm64
         -dep-follow-all-variants -dep-follow-recommends -dep-follow-source
         -dep-follow-suggests -batch
         -component=main,contrib,non-free,non-free-firmware -force-overwrite
@@ -557,12 +565,12 @@ describe PuppetX::Aptly::CliHelper do
           skip_bz2: true,
           skip_contents: true,
           skip_signing: true,
-        },
+        }.merge(non_aptly_options),
       ]
     end
     let(:cmd) do
-      %w[
-        aptly publish update -architectures=amd64
+      [aptly_environment] + %w[
+        aptly.sh publish update -architectures=amd64
         -dep-follow-all-variants -dep-follow-recommends -dep-follow-source
         -dep-follow-suggests -batch -force-overwrite -gpg-key=ABCDEFGH
         -keyring=/home/aptly/keyring.gpg -multi-dist
@@ -581,10 +589,10 @@ describe PuppetX::Aptly::CliHelper do
   describe '#publish_list' do
     let(:expected_result) { [{ 'Distribution' => 'bookworm', 'Prefix' => 'current/debian' }] }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly publish list -json] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh publish list -json] }
 
     specify do
-      out = cli_helper.publish_list
+      out = cli_helper.publish_list(non_aptly_options)
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
@@ -593,20 +601,20 @@ describe PuppetX::Aptly::CliHelper do
   describe '#publish_show' do
     let(:expected_result) { { 'Distribution' => 'bookworm', 'Prefix' => 'current/debian' } }
     let(:capture3_out) { expected_result.to_json }
-    let(:cmd) { %w[aptly publish show -json bookworm current/debian] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh publish show -json bookworm current/debian] }
 
     specify do
-      out = cli_helper.publish_show('bookworm', 'current/debian')
+      out = cli_helper.publish_show('bookworm', 'current/debian', non_aptly_options)
       expect(Open3).to have_received(:capture3).with(*cmd).once
       expect(out).to eq(expected_result)
     end
   end
 
   describe '#publish_drop' do
-    let(:cmd) { %w[aptly publish drop -force-drop -skip-cleanup bookworm current/debian] }
+    let(:cmd) { [aptly_environment] + %w[aptly.sh publish drop -force-drop -skip-cleanup bookworm current/debian] }
 
     specify do
-      cli_helper.publish_drop('bookworm', 'current/debian', force_drop: true, skip_cleanup: true)
+      cli_helper.publish_drop('bookworm', 'current/debian', { force_drop: true, skip_cleanup: true }.merge(non_aptly_options))
       expect(Open3).to have_received(:capture3).with(*cmd).once
     end
   end
