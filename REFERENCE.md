@@ -562,6 +562,13 @@ The following parameters are available in the `aptly_mirror` type.
 
 * [`aptly_command`](#-aptly_mirror--aptly_command)
 * [`aptly_environment`](#-aptly_mirror--aptly_environment)
+* [`config`](#-aptly_mirror--config)
+* [`dep_follow_all_variants`](#-aptly_mirror--dep_follow_all_variants)
+* [`dep_follow_recommends`](#-aptly_mirror--dep_follow_recommends)
+* [`dep_follow_source`](#-aptly_mirror--dep_follow_source)
+* [`dep_follow_suggests`](#-aptly_mirror--dep_follow_suggests)
+* [`ignore_signatures`](#-aptly_mirror--ignore_signatures)
+* [`max_tries`](#-aptly_mirror--max_tries)
 * [`name`](#-aptly_mirror--name)
 
 ##### <a name="-aptly_mirror--aptly_command"></a>`aptly_command`
@@ -575,6 +582,48 @@ Path to aptly binary
 Data type: `Hash[String[1], ScalarData]`
 
 Environment variables to set when executing aptly binary
+
+##### <a name="-aptly_mirror--config"></a>`config`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+Configuration file location
+
+##### <a name="-aptly_mirror--dep_follow_all_variants"></a>`dep_follow_all_variants`
+
+Data type: `Optional[Boolean]`
+
+When processing dependencies, follow a & b if dependency is a|b
+
+##### <a name="-aptly_mirror--dep_follow_recommends"></a>`dep_follow_recommends`
+
+Data type: `Optional[Boolean]`
+
+When processing dependencies, follow Recommends
+
+##### <a name="-aptly_mirror--dep_follow_source"></a>`dep_follow_source`
+
+Data type: `Optional[Boolean]`
+
+When processing dependencies, follow from binary to Source packages
+
+##### <a name="-aptly_mirror--dep_follow_suggests"></a>`dep_follow_suggests`
+
+Data type: `Optional[Boolean]`
+
+When processing dependencies, follow Suggests
+
+##### <a name="-aptly_mirror--ignore_signatures"></a>`ignore_signatures`
+
+Data type: `Optional[Boolean]`
+
+Disable verification of Release file signatures
+
+##### <a name="-aptly_mirror--max_tries"></a>`max_tries`
+
+Data type: `Optional[Integer[0]]`
+
+Max download tries till process fails with download error
 
 ##### <a name="-aptly_mirror--name"></a>`name`
 
