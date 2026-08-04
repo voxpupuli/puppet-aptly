@@ -1037,9 +1037,9 @@ Overwrite files in package pool in case of mismatch
 
 ##### `gpg_key`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[String[1],Array[String[1]]]]`
 
-GPG key ID to use when signing the release
+GPG key ID (or list of IDs) to use when signing the release
 
 ##### `keyring`
 
@@ -1227,9 +1227,9 @@ Overwrite files in package pool in case of mismatch
 
 ##### `gpg_key`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[String[1],Array[String[1]]]]`
 
-GPG key ID to use when signing the release
+GPG key ID (or list of IDs) to use when signing the release
 
 ##### `keyring`
 
@@ -1379,9 +1379,9 @@ Overwrite files in package pool in case of mismatch
 
 ##### `gpg_key`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[String[1],Array[String[1]]]]`
 
-GPG key ID to use when signing the release
+GPG key ID (or list of IDs) to use when signing the release
 
 ##### `keyring`
 
@@ -1501,9 +1501,9 @@ Overwrite files in package pool in case of mismatch
 
 ##### `gpg_key`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Variant[String[1],Array[String[1]]]]`
 
-GPG key ID to use when signing the release
+GPG key ID (or list of IDs) to use when signing the release
 
 ##### `keyring`
 

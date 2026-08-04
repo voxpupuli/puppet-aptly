@@ -39,8 +39,8 @@
       "type": "Optional[Boolean]"
     },
     "gpg_key": {
-      "description": "GPG key ID to use when signing the release",
-      "type": "Optional[String[1]]"
+      "description": "GPG key ID (or list of IDs) to use when signing the release",
+      "type": "Optional[Variant[String[1],Array[String[1]]]]"
     },
     "keyring": {
       "description": "GPG keyring(s) to use (instead of default)",

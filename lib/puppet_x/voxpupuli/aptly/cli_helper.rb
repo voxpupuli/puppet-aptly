@@ -215,7 +215,7 @@ module PuppetX
         cmd << "-component=#{Array(options[:component]).join(',')}" if options[:component]
         cmd << "-distribution=#{options[:distribution]}" if options[:distribution]
         cmd << '-force-overwrite' if options[:force_overwrite]
-        cmd << "-gpg-key=#{options[:gpg_key]}" if options[:gpg_key]
+        cmd += Array(options[:gpg_key]).map { |x| "-gpg-key=#{x}" }
         cmd += Array(options[:keyring]).map { |x| "-keyring=#{x}" }
         cmd << "-label=#{options[:label]}" if options[:label]
         cmd << '-multi-dist' if options[:multi_dist]
@@ -242,7 +242,7 @@ module PuppetX
         cmd << "-component=#{Array(options[:component]).join(',')}" if options[:component] && how == 'switch'
 
         cmd << '-force-overwrite' if options[:force_overwrite]
-        cmd << "-gpg-key=#{options[:gpg_key]}" if options[:gpg_key]
+        cmd += Array(options[:gpg_key]).map { |x| "-gpg-key=#{x}" }
         cmd += Array(options[:keyring]).map { |x| "-keyring=#{x}" }
         cmd << '-multi-dist' if options[:multi_dist]
         cmd << "-passphrase-file=#{options[:passphrase_file]}" if options[:passphrase_file]
