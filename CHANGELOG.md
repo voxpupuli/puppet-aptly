@@ -4,6 +4,38 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-aptly/tree/v4.0.0) (2026-08-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v3.1.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#61](https://github.com/voxpupuli/puppet-aptly/pull/61) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Allow to pass multiple `--gpg-key` CLI flags to `aptly publish` [\#92](https://github.com/voxpupuli/puppet-aptly/issues/92)
+- Add `multi_dist` parameter to publish tasks [\#87](https://github.com/voxpupuli/puppet-aptly/issues/87)
+- Implement `*_show` tasks [\#75](https://github.com/voxpupuli/puppet-aptly/issues/75)
+- Add Ubuntu 26.04 support [\#95](https://github.com/voxpupuli/puppet-aptly/pull/95) ([bastelfreak](https://github.com/bastelfreak))
+- Allow multiple GPG signing keys [\#94](https://github.com/voxpupuli/puppet-aptly/pull/94) ([Guflly](https://github.com/Guflly))
+- Improve aptly\_mirror type & provider [\#90](https://github.com/voxpupuli/puppet-aptly/pull/90) ([jay7x](https://github.com/jay7x))
+- Add multi\_dist option to publish tasks [\#89](https://github.com/voxpupuli/puppet-aptly/pull/89) ([jay7x](https://github.com/jay7x))
+- Add openbolt to test gem group [\#79](https://github.com/voxpupuli/puppet-aptly/pull/79) ([jay7x](https://github.com/jay7x))
+- Add aptly::cleanup\_snapshots plan [\#78](https://github.com/voxpupuli/puppet-aptly/pull/78) ([jay7x](https://github.com/jay7x))
+- implement `*_show` tasks [\#76](https://github.com/voxpupuli/puppet-aptly/pull/76) ([jay7x](https://github.com/jay7x))
+- Add `aptly::serve` [\#73](https://github.com/voxpupuli/puppet-aptly/pull/73) ([bwitt](https://github.com/bwitt))
+
+**Fixed bugs:**
+
+- Fix puppet\_x LoadError when running Bolt Tasks [\#82](https://github.com/voxpupuli/puppet-aptly/pull/82) ([sboyd-m](https://github.com/sboyd-m))
+
+**Closed issues:**
+
+- aptly\_mirror: Add support for passing environment variables [\#81](https://github.com/voxpupuli/puppet-aptly/issues/81)
+- Add  creation-time options to aptly\_mirror type [\#74](https://github.com/voxpupuli/puppet-aptly/issues/74)
+- Support for aptly serving service configuration [\#45](https://github.com/voxpupuli/puppet-aptly/issues/45)
+
 ## [v3.1.0](https://github.com/voxpupuli/puppet-aptly/tree/v3.1.0) (2025-11-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v3.0.0...v3.1.0)
