@@ -14,7 +14,6 @@
 /coverage/
 /log/
 /.idea/
-.DS_Store
 /.dependencies/
 /.librarian/
 /Puppetfile.lock
