@@ -879,6 +879,12 @@ Data type: `Optional[Variant[Stdlib::Absolutepath,Array[Stdlib::Absolutepath]]]`
 
 GPG keyring(s) to use when verifying Release file
 
+##### `latest`
+
+Data type: `Optional[Boolean]`
+
+Download only latest version of each package (per architecture)
+
 ##### `max_tries`
 
 Data type: `Optional[Integer[0]]`

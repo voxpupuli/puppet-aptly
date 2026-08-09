@@ -112,6 +112,7 @@ describe PuppetX::Aptly::CliHelper do
           ignore_checksums: true,
           ignore_signatures: true,
           keyring: ['/home/aptly/example_keyring1.gpg', '/home/aptly/example_keyring2.gpg'],
+          latest: true,
           max_tries: 5,
           skip_existing_packages: true,
         }.merge(non_aptly_options),
@@ -123,7 +124,7 @@ describe PuppetX::Aptly::CliHelper do
         -dep-follow-recommends -dep-follow-source -dep-follow-suggests
         -download-limit=100 -downloader=default -force -ignore-checksums
         -ignore-signatures -keyring=/home/aptly/example_keyring1.gpg
-        -keyring=/home/aptly/example_keyring2.gpg -max-tries=5
+        -keyring=/home/aptly/example_keyring2.gpg -latest -max-tries=5
         -skip-existing-packages bookworm-main
       ]
     end
@@ -131,6 +132,16 @@ describe PuppetX::Aptly::CliHelper do
     specify do
       cli_helper.mirror_update(*args)
       expect(Open3).to have_received(:capture3).with(*cmd).once
+    end
+
+    context 'without latest' do
+      let(:args) { ['bookworm-main', non_aptly_options] }
+      let(:cmd) { [aptly_environment] + %w[aptly.sh mirror update bookworm-main] }
+
+      specify do
+        cli_helper.mirror_update(*args)
+        expect(Open3).to have_received(:capture3).with(*cmd).once
+      end
     end
   end
 
