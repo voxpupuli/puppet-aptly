@@ -50,6 +50,7 @@ module PuppetX
         cmd << '-ignore-checksums' if options[:ignore_checksums]
         cmd << '-ignore-signatures' if options[:ignore_signatures]
         cmd += Array(options[:keyring]).map { |x| "-keyring=#{x}" }
+        cmd << '-latest' if options[:latest]
         cmd << "-max-tries=#{options[:max_tries]}" if options[:max_tries]
         cmd << '-skip-existing-packages' if options[:skip_existing_packages]
         cmd << name

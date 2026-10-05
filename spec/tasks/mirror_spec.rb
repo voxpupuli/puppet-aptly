@@ -66,7 +66,7 @@ describe AptlyMirrorTask do
   end
 
   describe 'mirror_update' do
-    let(:opts) { super().merge(name: 'test', architectures: %w[amd64 arm64]) }
+    let(:opts) { super().merge(name: 'test', architectures: %w[amd64 arm64], latest: true) }
 
     it 'updates the mirror' do
       allow(PuppetX::Aptly::CliHelper).to receive(method_name).with(opts[:name], opts).and_return(true)
