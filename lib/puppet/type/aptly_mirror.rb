@@ -89,6 +89,10 @@ Puppet::ResourceApi.register_type(
       type: 'Optional[Integer[0]]',
       behaviour: :parameter,
     },
+    with_appstream: {
+      desc: 'Download AppStream (DEP-11) metadata',
+      type: 'Optional[Boolean]',
+    },
     with_installer: {
       desc: 'Download additional not packaged installer files',
       type: 'Optional[Boolean]',

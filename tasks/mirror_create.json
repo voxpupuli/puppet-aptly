@@ -58,6 +58,10 @@
       "description": "Max download tries till process fails with download error",
       "type": "Optional[Integer[0]]"
     },
+    "with_appstream": {
+      "description": "Download AppStream (DEP-11) metadata",
+      "type": "Optional[Boolean]"
+    },
     "with_installer": {
       "description": "Download additional not packaged installer files",
       "type": "Optional[Boolean]"

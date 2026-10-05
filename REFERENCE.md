@@ -538,6 +538,12 @@ Data type: `Stdlib::HTTPUrl`
 
 Archive URL
 
+##### `with_appstream`
+
+Data type: `Optional[Boolean]`
+
+Download AppStream (DEP-11) metadata
+
 ##### `with_installer`
 
 Data type: `Optional[Boolean]`
@@ -708,6 +714,12 @@ GPG keyring(s) to use when verifying Release file
 Data type: `Optional[Integer[0]]`
 
 Max download tries till process fails with download error
+
+##### `with_appstream`
+
+Data type: `Optional[Boolean]`
+
+Download AppStream (DEP-11) metadata
 
 ##### `with_installer`
 
