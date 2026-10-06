@@ -71,6 +71,7 @@ describe PuppetX::Aptly::CliHelper do
             ignore_signatures: true,
             keyring: '/home/aptly/keyring.gpg',
             max_tries: 5,
+            with_appstream: true,
             with_installer: true,
             with_sources: true,
             with_udebs: true,
@@ -83,7 +84,7 @@ describe PuppetX::Aptly::CliHelper do
           -config=/home/test/aptly.conf -dep-follow-all-variants
           -dep-follow-recommends -dep-follow-source -dep-follow-suggests
           -filter=foo -filter-with-deps -ignore-signatures
-          -keyring=/home/aptly/keyring.gpg -max-tries=5 -with-installer
+          -keyring=/home/aptly/keyring.gpg -max-tries=5 -with-appstream -with-installer
           -with-sources -with-udebs bookworm-main http://deb.debian.org/debian/
           bookworm main updates
         ]
@@ -193,6 +194,7 @@ describe PuppetX::Aptly::CliHelper do
           filter_with_deps: true,
           ignore_signatures: true,
           keyring: ['/home/aptly/example_keyring1.gpg', '/home/aptly/example_keyring2.gpg'],
+          with_appstream: true,
           with_installer: true,
           with_sources: true,
           with_udebs: true,
@@ -207,6 +209,7 @@ describe PuppetX::Aptly::CliHelper do
         -filter=foo -filter-with-deps -ignore-signatures
         -keyring=/home/aptly/example_keyring1.gpg
         -keyring=/home/aptly/example_keyring2.gpg
+        -with-appstream
         -with-installer -with-sources -with-udebs
         bookworm-main
       ]
