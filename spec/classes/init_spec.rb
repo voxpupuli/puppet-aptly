@@ -39,7 +39,14 @@ describe 'aptly' do
         context 'custom config path' do
           let(:params) { { config_file: '/etc/aptly/aptly.conf' } }
 
-          it { is_expected.to contain_file('/etc/aptly/aptly.conf') }
+          it {
+            is_expected.to contain_file('/etc/aptly/aptly.conf').with({
+                                                                        owner: 'root',
+                                                                        group: 'root',
+                                                                        mode: '0440',
+                                                                        show_diff: false,
+                                                                      })
+          }
         end
       end
 
