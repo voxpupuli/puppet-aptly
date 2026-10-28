@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-aptly/tree/v4.1.0) (2026-10-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- Add `latest` option to aptly mirror update [\#91](https://github.com/voxpupuli/puppet-aptly/issues/91)
+- puppet/systemd: Allow 11.x [\#100](https://github.com/voxpupuli/puppet-aptly/pull/100) ([bastelfreak](https://github.com/bastelfreak))
+- Add with\_appstream option [\#99](https://github.com/voxpupuli/puppet-aptly/pull/99) ([jay7x](https://github.com/jay7x))
+- Add latest option to mirror update task [\#96](https://github.com/voxpupuli/puppet-aptly/pull/96) ([alloutflo](https://github.com/alloutflo))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-aptly/tree/v4.0.0) (2026-08-04)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-aptly/compare/v3.1.0...v4.0.0)
