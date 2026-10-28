@@ -1992,4 +1992,3 @@ Data type: `Boolean`
 Whether to really delete snapshots or just report them
 
 Default value: `false`
-
